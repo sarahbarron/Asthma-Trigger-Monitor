@@ -1,0 +1,31 @@
+{
+  "name": "asthma-air-quality",
+  "version": "1.0.0",
+  "description": "measures temperature, humidity and gas levels which are used to calculate the IAQ levels notifications are sent to user if the levels go into an asthma trigger range",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarahbarron/Asthma-Trigger-Monitor.git"
+  },
+  "keywords": [
+    "Asthma",
+    "Triggers",
+    "Temperature",
+    "Humidity",
+    "Gas",
+    "IAQ"
+  ],
+  "author": "Sarah Barron",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarahbarron/Asthma-Trigger-Monitor/issues"
+  },
+  "homepage": "https://github.com/sarahbarron/Asthma-Trigger-Monitor#readme",
+  "dependencies": {
+    "blynk-library": "^0.5.4",
+    "onoff": "^5.0.0"
+  }
+}
