@@ -1,0 +1,7 @@
+minHum = 30
+maxHum = 50
+minTemp = 16
+maxTemp = 23
+minIaq = 0
+maxIaq = 100
+remoteAccess = n
