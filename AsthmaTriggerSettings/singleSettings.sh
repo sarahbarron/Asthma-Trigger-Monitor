@@ -56,8 +56,8 @@ fi
 
 # Initial variable for yes or no set to blank
 YorN=""
-lowerLevel=$(grep "$min" settings.txt| awk '{print $3}')
-higherLevel=$(grep "$max" settings.txt| awk '{print $3}')
+lowerLevel=$(grep "$min" settings.json| awk '{print $2}')
+higherLevel=$(grep "$max" settings.json| awk '{print $2}')
 
 # This is a Function to check if a user has entered exit in the
 # command prompt at any stage if they do this function will
@@ -141,8 +141,8 @@ then
 fi
 
 
-grep "$min" settings.txt| sed -i "s/$min.*/$min = $lowerLevel/" settings.txt
-grep "$max" settings.txt| sed -i "s/$max.*/$max = $higherLevel/" settings.txt
+sed -i "s/$min.*/$min\": $lowerLevel/" settings.json
+sed -i "s/$max.*/$max\": $higherLevel/" settings.json
 
 echo
 echo "You will be notified when the $sense goes: below $lowerLevel $symbol and above $higherLevel $symbol"

@@ -27,4 +27,4 @@ do
         CheckForExit "$YorN"
         echo
 done
-sed -i "s/remote.*/remoteAccess = $YorN/" settings.txt
+sed -i "s/remote.*/remoteAccess\": $YorN/" settings.json

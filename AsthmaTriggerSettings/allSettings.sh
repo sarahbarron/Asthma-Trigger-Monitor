@@ -19,13 +19,13 @@ then
 fi
 
 }
-currentMinTemp=$(grep "minTemp" settings.txt| awk '{print $3}')
-currentMaxTemp=$(grep "maxTemp" settings.txt| awk '{print $3}')
-currentMinHum=$(grep "minHum" settings.txt| awk '{print $3}')
-currentMaxHum=$(grep "maxHum" settings.txt| awk '{print $3}')
-currentMinIaq=$(grep "minHum" settings.txt| awk '{print $3}')
-currentMaxIaq=$(grep "maxHum" settings.txt| awk '{print $3}')
-currentRemoteAccess=$(grep "remote" settings.txt| awk '{print $3}')
+currentMinTemp=$(grep "minTemp" settings.json| awk '{print $2}')
+currentMaxTemp=$(grep "maxTemp" settings.json| awk '{print $2}')
+currentMinHum=$(grep "minHum" settings.json| awk '{print $2}')
+currentMaxHum=$(grep "maxHum" settings.json| awk '{print $2}')
+currentMinIaq=$(grep "minHum" settings.json| awk '{print $2}')
+currentMaxIaq=$(grep "maxHum" settings.json| awk '{print $2}')
+currentRemoteAccess=$(grep "remote" settings.json| awk '{print $2}')
 YorN=""
 
 echo

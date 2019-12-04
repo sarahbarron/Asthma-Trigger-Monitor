@@ -50,13 +50,16 @@ case $name in
 	;;
 
 "Reset to Default Settings")
-	echo "minHum = 30
-maxHum = 50
-minTemp = 18
-maxTemp = 21
-minIaq = 0
-maxIaq = 100
-remoteAccess = n" > settings.txt
+	echo "{
+	\"minHum\": 30
+	\"maxHum\": 50
+	\"minTemp\": 18
+	\"maxTemp\": 21
+	\"minIaq\": 0
+	\"maxIaq\": 100
+	\"remoteAccess\": n
+	\"settingsChanged\": y
+}" > settings.json
 
 	echo "Settings have been reset to Ideal Temperature (18-21 Degrees Celsius), Humidity (30-50%RH), Indoor Air Quality (0-100 IAQ), Remote Access: No"
 	;;

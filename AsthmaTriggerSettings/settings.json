@@ -1,0 +1,10 @@
+{
+	"minHum": 30
+	"maxHum": 50
+	"minTemp": 18
+	"maxTemp": 21
+	"minIaq": 0
+	"maxIaq": 100
+	"remoteAccess": n
+	"settingsChanged": y
+}
