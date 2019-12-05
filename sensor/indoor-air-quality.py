@@ -4,16 +4,24 @@ import bme680
 import time
 import urllib2
 import time
-import BlynkLib
 import blynklib
 import os
+from getUserIdealSettings import *
 from wia import Wia
+
+
+###################### USER SETTINGSS #############################################################################################
+
+# Get user settings for when to send notifications
+(minTemp, maxTemp, minHum, maxHum, minIaq, maxIaq, remoteAccess)  =  allSettings()
+userRemoteAccess = str(remoteAccess)
 
 # set the previous temperatures to in range values
 previousTemp = 21
 previousHum = 40
 previousIAQ = 50
 
+######################### INITIALISE IoT's ###########################################################################################
 
 # Initialise Thingspeak
 WRITE_API_KEY = os.environ.get('THINGSPEAK_WRITE_API')
@@ -26,9 +34,14 @@ blynk = blynklib.Blynk(BLYNK_AUTH)
 
 # Inistialise Wia
 wia = Wia()
-wia.access_token = "d_sk_vIE1YYvy2J4diOY04CzxPZwK"
+wia.access_token = os.environ.get('WIA_TOKEN')
 
 
+
+#############################   IoT FUNCTIONS ##########################################################################################
+
+# Takes in the current temperature, humidity and iaq values
+# sends the values to Blynk, Wia and ThingSpeak
 def WriteDataToCloudIoTs(temp, hum, iaq):
 
     # send the data to thingspeak in the query string
@@ -43,25 +56,25 @@ def WriteDataToCloudIoTs(temp, hum, iaq):
     wia.Event.publish(name="humidity", data=hum)
     wia.Event.publish(name="IAQ", data=iaq)
 
-    # set the temperature pin colors
-    if temp < 19 or temp > 23:
-        # if temp is between 18 and 24 set to orange
-        if temp >= 18 and temp <= 24:
+    # set the temperature pin colors for Blynk
+    if temp < 18 or temp > 21:
+        # if temp is between 16 and 23 set to orange
+        if temp >= 16 and temp <= 23:
             blynk.set_property(1, 'color', '#FF7E00')
-        # if temp is less than 18 or greater than 24 set color to red
+        # if temp is less than 16 or greater than 23 set color to red
         else:
             blynk.set_property(1, 'color', '#FF0400')
-    # if temp is in range 19-23 set color to green
+    # if temp is in range 18-21 set color to green
     else:
         blynk.set_property(1, 'color', '#00E400')
 
     # set the humidity pin colors
     if hum > 50 or hum < 30:
-        # if humidity is out of ideal range and is less than 60 or greater than 20
+        # if humidity is out of ideal range and is less than 55 or greater than 25
         # set the color to orange
-        if hum <= 60 and hum >= 20:
+        if hum <= 55 and hum >= 25:
             blynk.set_property(2, 'color', '#FF7E00')
-        # if humidity is greater than 60 or less than 20 set to red
+        # if humidity is greater than 55 or less than 25 set to red
         else:
             blynk.set_property(2, 'color', '#FF0400')
     # otherwise if it is in range set it to green
@@ -95,8 +108,59 @@ def WriteDataToCloudIoTs(temp, hum, iaq):
     blynk.virtual_write(3, iaq)
 
 
+# Function to check if a notification to blynk is needed
+def isNotificationNeeded(temp, hum, iaq):
+	# set send notification to false initially
+        tempSendNotification = False
+        humSendNotification = False
+        iaqSendNotification = False
+
+        # If the previous measurement was in range and the
+        # current measurement is out of range then send a notification
+        # this means that a notification will only be sent once 
+	# when it moves from in range to out of range and not
+        # everytime it stays out of range
+        if(previousTemp > minTemp and previousTemp < maxTemp):
+        	if(temp < minTemp or temp > maxTemp):
+                    tempSendNotification = True
+        if(previousHum > minHum and previousHum < maxHum):
+              	if(hum < minHum or hum > maxHum):
+               		humSendNotification = True
+        if(previousIAQ > minIaq or previousIAQ < maxIaq):
+                if(iaq < minIaq or iaq > maxIaq):
+                    iaqSendNotification = True
+
+        # if any of the values go from in range to out of range send a blynk notification
+        if(tempSendNotification or humSendNotification or iaqSendNotification):
+                # if the temperature needs to be notified set the notifyTemp to
+                # the temp value otherwise set it to a trigger value of -100
+                if tempSendNotification:
+                    notifyTemp = temp
+                else:
+                    notifyTemp = -100
+
+                # if the humidity needs to be notified set the notifyHum to
+                # the hum value otherwise set it to a trigger value of -1
+                if humSendNotification:
+                    notifyHum = hum
+                else:
+                    notifyHum = -1
+
+                # if the IAQ needs to be notified set the notifyIaq to
+                # the iaq value otherwise set it to a trigger value of -1
+                if iaqSendNotification:
+                    notifyIaq = iaq
+                else:
+                    notifyIaq = -1
+
+		# send values to blynkNotification method
+		blynkNotification(notifyTemp, notifyHum, notifyIaq)
+
+
+
 # Function to send a Blynk Notification
 def blynkNotification(temp, hum, iaq):
+
     # initialise the message to empty initially when a value
     # is detected as out of range the message will change
     tempMessage = ''
@@ -105,43 +169,51 @@ def blynkNotification(temp, hum, iaq):
 
     # if the temperature is out of range set the
     # appropriate message
-    if temp > -100 and temp < 19:
+    if temp > -100 and temp < minTemp:
         tempMessage = 'Temperature is low: ' + \
             str(temp)+"C\n- Turn on the heating"
-    elif temp > -100 and temp > 23:
+    elif temp > -100 and temp > maxTemp:
         tempMessage = 'Temperature is high: ' + \
             str(temp) + "C\n- Turn off the heating"
 
     # if the humidity is out of range set the
     # appropriate message
-    if hum > -1 and hum < 30:
+    if hum > -1 and hum < minHum:
         humMessage = 'Humidity is low: ' + \
             str(hum)+"%\n- Turn on the humidifier"
-    elif hum > -1 and hum > 50:
+    elif hum > -1 and hum > maxHum:
         humMessage = 'Humidity is high: ' + \
             str(hum)+"%\n- Turn on the dehumidifier"
 
     # if the IAQ is out of range set the
     # appropriate message
-    if iaq > -1 and iaq > 100:
+    if iaq > -1 and iaq > maxIaq:
+	print iaq
         IAQmeasurement = 'Index Air Quality (IAQ): '+str(iaq)+' : '
-        IAQcauses = "\n- Some causes: gas, fire, dust, smoking, humidity etc."
-        if(iaq > 100 and iaq <= 150):
+        IAQcauses = "\n- Some causes: gas, fire, dust, smoking, hairspray etc."
+
+	if(iaq > 100 and iaq <= 150):
             levelOfConcern = "Unhealthy for Asthmas Sufferers"
         elif(iaq > 150 and iaq <= 200):
             levelOfConcern = "Unhealthy for everyone"
         elif(iaq > 200 and iaq <= 300):
             levelOfConcern = "Very Unhealthy for everyone"
-        else:
+        elif (iaq > 300):
             levelOfConcern = "Hazardous"
-        iaqMessage = IAQmeasurement+levelOfConcern+IAQcauses
+      	else:
+	    levelOfConcern = "This is outside your desired IAQ levels"
+
+	iaqMessage = IAQmeasurement+levelOfConcern+IAQcauses
+
     # append the messages
     message = tempMessage+'\n\n'+humMessage+'\n\n'+iaqMessage
+
     # send the blynk notification
     blynk.notify(message)
 
 
-######################################### Initial Setup ##############################################################################
+
+######################################### SENSOR - INITIAL SETUP ##############################################################################
 # try link to the sensor
 try:
     sensor = bme680.BME680(bme680.I2C_ADDR_PRIMARY)
@@ -153,6 +225,7 @@ sensor.set_humidity_oversample(bme680.OS_2X)
 sensor.set_pressure_oversample(bme680.OS_4X)
 sensor.set_temperature_oversample(bme680.OS_8X)
 sensor.set_filter(bme680.FILTER_SIZE_3)
+
 # Set gas measurements
 sensor.set_gas_status(bme680.ENABLE_GAS_MEAS)
 sensor.set_gas_heater_temperature(320)
@@ -163,7 +236,7 @@ sensor.select_gas_heater_profile(0)
 # burn_in_time (in seconds) is kept track of.
 start_time = time.time()
 curr_time = time.time()
-burn_in_time = 300
+burn_in_time = 5
 
 # create an array to store burn in data
 burn_in_data = []
@@ -200,7 +273,12 @@ try:
     # get the temperature reading. which is returned in celsius
     temp = round(sensor.data.temperature, 1)
 
+################################# INFINITE LOOP #############################################################################
+
+
+    # Continue to loop
     while True:
+
         blynk.run()
         # if the sensor is receiving data and the heat_stable is true
         if sensor.get_sensor_data() and sensor.data.heat_stable:
@@ -220,7 +298,8 @@ try:
                 hum_score = (100 - hum_baseline - hum_offset)
                 hum_score /= (100 - hum_baseline)
                 hum_score *= (hum_weighting * 100)
-            # otherwise if the humidity value is equal to below the optimum value of 40
+
+	    # otherwise if the humidity value is below the optimum value of 40
             # calculate the precentage that humidity contributes to the 25% of the IAQ
             else:
                 hum_score = (hum_baseline + hum_offset)
@@ -245,53 +324,8 @@ try:
 
             # sends the data to the cloud IoTs Blynk and Thingspeak
             WriteDataToCloudIoTs(temp, hum, iaq)
-
-            # Testing values
-            # WriteDataToCloudIoTs(20, 50, 260)
-
-            # set send notification to false initially
-            tempSendNotification = False
-            humSendNotification = False
-            iaqSendNotification = False
-            # If the previous measurement was in range and the
-            # current measurement is out of range then send a notification
-            # this means that a notification will only be sent once and not
-            # everytime it stays out of range
-            if(previousTemp > 19 and previousTemp < 23):
-                if(temp < 19 or temp > 23):
-                    tempSendNotification = True
-            if(previousHum > 30 and previousHum < 50):
-                if(hum < 30 or hum > 50):
-                    humSendNotification = True
-            if(previousIAQ <= 100):
-                if(iaq > 100):
-                    iaqSendNotification = True
-
-            # if any of the values go from in range to out of range send a blynk notification
-            if(tempSendNotification or humSendNotification or iaqSendNotification):
-                # if the temperature needs to be notified set the notifyTemp to
-                # the temp value otherwise set it to a trigger value of -100
-                if tempSendNotification:
-                    notifyTemp = temp
-                else:
-                    notifyTemp = -100
-                # if the humidity needs to be notified set the notifyHum to
-                # the hum value otherwise set it to a trigger value of -1
-                if humSendNotification:
-                    notifyHum = hum
-                else:
-                    notifyHum = -1
-
-                # if the IAQ needs to be notified set the notifyIaq to
-                # the iaq value otherwise set it to a trigger value of -1
-                if iaqSendNotification:
-                    notifyIaq = iaq
-                else:
-                    notifyIaq = -1
-                blynkNotification(notifyTemp, notifyHum, notifyIaq)
-
-                # Testing values
-                # blynkNotification(20, 50, 260)
+	    # checks if a notification to the user is needed based on the current sensor values
+	    isNotificationNeeded(temp, hum, iaq)
 
             # update the previous measurement for the next loop
             previousTemp = temp
@@ -299,12 +333,11 @@ try:
             previousIAQ = iaq
 
             # print message to terminal
-            print('temp: {0:.2f} Celsius, humidity: {1:.2f} %RH, gas: {0:.2f} omhs, air quality: {2:.2f}'.format(
+            print('temp: {0:.2f} Celsius, humidity: {1:.2f} %RH, air quality: {2:.2f}'.format(
                 temp,
                 hum,
-                gas,
                 iaq))
-            # sleep for 5 seconds
+            # sleep for 1 Minute
             time.sleep(60)
 
 # if there is a keyboard interrupt do nothing

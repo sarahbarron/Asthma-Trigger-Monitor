@@ -27,4 +27,4 @@ do
         CheckForExit "$YorN"
         echo
 done
-sed -i "s/remote.*/remoteAccess\": $YorN/" settings.json
+sed -i "s/remote.*/remoteAccess\": \"$YorN\"/" AsthmaTriggerSettings/settings.json

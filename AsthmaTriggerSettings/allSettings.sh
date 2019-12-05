@@ -19,13 +19,13 @@ then
 fi
 
 }
-currentMinTemp=$(grep "minTemp" settings.json| awk '{print $2}')
-currentMaxTemp=$(grep "maxTemp" settings.json| awk '{print $2}')
-currentMinHum=$(grep "minHum" settings.json| awk '{print $2}')
-currentMaxHum=$(grep "maxHum" settings.json| awk '{print $2}')
-currentMinIaq=$(grep "minHum" settings.json| awk '{print $2}')
-currentMaxIaq=$(grep "maxHum" settings.json| awk '{print $2}')
-currentRemoteAccess=$(grep "remote" settings.json| awk '{print $2}')
+currentMinTemp=$(grep "minTemp" AsthmaTriggerSettings/settings.json| awk '{print $2}')
+currentMaxTemp=$(grep "maxTemp" AsthmaTriggerSettings/settings.json| awk '{print $2}')
+currentMinHum=$(grep "minHum" AsthmaTriggerSettings/settings.json| awk '{print $2}')
+currentMaxHum=$(grep "maxHum" AsthmaTriggerSettings/settings.json| awk '{print $2}')
+currentMinIaq=$(grep "minIaq" AsthmaTriggerSettings/settings.json| awk '{print $2}')
+currentMaxIaq=$(grep "maxIaq" AsthmaTriggerSettings/settings.json| awk '{print $2}')
+currentRemoteAccess=$(grep "remote" AsthmaTriggerSettings/settings.json| awk '{print $2}')
 YorN=""
 
 echo
@@ -74,7 +74,7 @@ then
 
 	if [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ]
 	then
-        	./singleSettings.sh temp all
+        	./AsthmaTriggerSettings/singleSettings.sh temp all
 	fi
 
 	YorN=""
@@ -90,7 +90,7 @@ then
 
 	if [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ]
 	then
-        	./singleSettings.sh hum all
+        	./AsthmaTriggerSettings/singleSettings.sh hum all
 	fi
 
 	YorN=""
@@ -106,19 +106,14 @@ then
 
 	if [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ]
 	then
-        	./singleSettings.sh iaq all
+        	./AsthmaTriggerSettings/singleSettings.sh iaq all
 	fi
         echo
 	echo "-------------------------------------------------------------------------------------------------------------------------------------------------"
-	./remoteAccess.sh
+	./AsthmaTriggerSettings/remoteAccess.sh
 
 fi
 echo
 echo "THANK YOU FOR TAKING THE TIME TO SETUP YOUR ASTHMA TRIGGER MONITOR. ALL SETTINGS HAVE BEEN RECORDED"
 echo
 exit 0
-
-
-
-
-
