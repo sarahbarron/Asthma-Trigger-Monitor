@@ -6,20 +6,33 @@ import urllib2
 import time
 import blynklib
 import os
-from getUserIdealSettings import *
+from getUserIdealSettings import getAllSettings
 from wia import Wia
+from presenceDetection import arp_scan
 
 
 ###################### USER SETTINGSS #############################################################################################
-
+arp_scan()
 # Get user settings for when to send notifications
-(minTemp, maxTemp, minHum, maxHum, minIaq, maxIaq, remoteAccess)  =  allSettings()
+(minTemp, maxTemp, minHum, maxHum, minIaq, maxIaq, remoteAccess) = getAllSettings()
 userRemoteAccess = str(remoteAccess)
 
-# set the previous temperatures to in range values
-previousTemp = 21
-previousHum = 40
-previousIAQ = 50
+# if the user has remote access to home devices don't do any arp scans (set to false)
+# Otherwise do an arp scan to see if someone is home
+if userRemoteAccess == 'y':
+    doArpScan = False
+    notify = True
+else:
+    doArpScan = True
+
+# Previous Values set to ideal min and max values on first setup and also
+# if a user doesn't have remote access and are not at home when they return home
+# the previous values are reset to the ideal min and max values need for comparison
+
+
+previousTemp = minTemp
+previousHum = minHum
+previousIaq = minIaq
 
 ######################### INITIALISE IoT's ###########################################################################################
 
@@ -35,7 +48,6 @@ blynk = blynklib.Blynk(BLYNK_AUTH)
 # Inistialise Wia
 wia = Wia()
 wia.access_token = os.environ.get('WIA_TOKEN')
-
 
 
 #############################   IoT FUNCTIONS ##########################################################################################
@@ -107,55 +119,67 @@ def WriteDataToCloudIoTs(temp, hum, iaq):
     blynk.virtual_write(2, hum)
     blynk.virtual_write(3, iaq)
 
+# if the user doesn't have remote access to devices
+# when the user is not home keep the previousTemp as the
+# users ideal values so that when the user returns home the
+# values are compared against ideal values and if they are
+# out of range the first notification can be initialised
+
+
+def setPreviousValues():
+    previousTemp = minTemp
+    previousHum = minHum
+    previousIaq = minIaq
 
 # Function to check if a notification to blynk is needed
+
+
 def isNotificationNeeded(temp, hum, iaq):
-	# set send notification to false initially
-        tempSendNotification = False
-        humSendNotification = False
-        iaqSendNotification = False
+        # set send notification to false initially
+    tempSendNotification = False
+    humSendNotification = False
+    iaqSendNotification = False
 
-        # If the previous measurement was in range and the
-        # current measurement is out of range then send a notification
-        # this means that a notification will only be sent once 
-	# when it moves from in range to out of range and not
-        # everytime it stays out of range
-        if(previousTemp > minTemp and previousTemp < maxTemp):
-        	if(temp < minTemp or temp > maxTemp):
-                    tempSendNotification = True
-        if(previousHum > minHum and previousHum < maxHum):
-              	if(hum < minHum or hum > maxHum):
-               		humSendNotification = True
-        if(previousIAQ > minIaq or previousIAQ < maxIaq):
-                if(iaq < minIaq or iaq > maxIaq):
-                    iaqSendNotification = True
+    # If the previous measurement was in range and the
+    # current measurement is out of range then send a notification
+    # this means that a notification will only be sent once
+    # when it moves from in range to out of range and not
+    # everytime it stays out of range
+    if(previousTemp >= minTemp and previousTemp <= maxTemp):
+        if(temp < minTemp or temp > maxTemp):
+            tempSendNotification = True
+    if(previousHum >= minHum and previousHum <= maxHum):
+        if(hum < minHum or hum > maxHum):
+            humSendNotification = True
+    if(previousIaq >= minIaq or previousIaq <= maxIaq):
+        if(iaq < minIaq or iaq > maxIaq):
+            iaqSendNotification = True
 
-        # if any of the values go from in range to out of range send a blynk notification
-        if(tempSendNotification or humSendNotification or iaqSendNotification):
-                # if the temperature needs to be notified set the notifyTemp to
-                # the temp value otherwise set it to a trigger value of -100
-                if tempSendNotification:
-                    notifyTemp = temp
-                else:
-                    notifyTemp = -100
+    # if any of the values go from in range to out of range send a blynk notification
+    if(tempSendNotification or humSendNotification or iaqSendNotification):
+        # if the temperature needs to be notified set the notifyTemp to
+        # the temp value otherwise set it to a trigger value of -100
+        if tempSendNotification:
+            notifyTemp = temp
+        else:
+            notifyTemp = -100
 
-                # if the humidity needs to be notified set the notifyHum to
-                # the hum value otherwise set it to a trigger value of -1
-                if humSendNotification:
-                    notifyHum = hum
-                else:
-                    notifyHum = -1
+        # if the humidity needs to be notified set the notifyHum to
+        # the hum value otherwise set it to a trigger value of -1
+        if humSendNotification:
+            notifyHum = hum
+        else:
+            notifyHum = -1
 
-                # if the IAQ needs to be notified set the notifyIaq to
-                # the iaq value otherwise set it to a trigger value of -1
-                if iaqSendNotification:
-                    notifyIaq = iaq
-                else:
-                    notifyIaq = -1
+        # if the IAQ needs to be notified set the notifyIaq to
+        # the iaq value otherwise set it to a trigger value of -1
+        if iaqSendNotification:
+            notifyIaq = iaq
+        else:
+            notifyIaq = -1
 
-		# send values to blynkNotification method
-		blynkNotification(notifyTemp, notifyHum, notifyIaq)
-
+        # send values to blynkNotification method
+        blynkNotification(notifyTemp, notifyHum, notifyIaq)
 
 
 # Function to send a Blynk Notification
@@ -188,11 +212,11 @@ def blynkNotification(temp, hum, iaq):
     # if the IAQ is out of range set the
     # appropriate message
     if iaq > -1 and iaq > maxIaq:
-	print iaq
+        print iaq
         IAQmeasurement = 'Index Air Quality (IAQ): '+str(iaq)+' : '
         IAQcauses = "\n- Some causes: gas, fire, dust, smoking, hairspray etc."
 
-	if(iaq > 100 and iaq <= 150):
+        if(iaq > 100 and iaq <= 150):
             levelOfConcern = "Unhealthy for Asthmas Sufferers"
         elif(iaq > 150 and iaq <= 200):
             levelOfConcern = "Unhealthy for everyone"
@@ -200,17 +224,16 @@ def blynkNotification(temp, hum, iaq):
             levelOfConcern = "Very Unhealthy for everyone"
         elif (iaq > 300):
             levelOfConcern = "Hazardous"
-      	else:
-	    levelOfConcern = "This is outside your desired IAQ levels"
+        else:
+            levelOfConcern = "This is outside your desired IAQ levels"
 
-	iaqMessage = IAQmeasurement+levelOfConcern+IAQcauses
+        iaqMessage = IAQmeasurement+levelOfConcern+IAQcauses
 
     # append the messages
     message = tempMessage+'\n\n'+humMessage+'\n\n'+iaqMessage
 
     # send the blynk notification
     blynk.notify(message)
-
 
 
 ######################################### SENSOR - INITIAL SETUP ##############################################################################
@@ -275,7 +298,6 @@ try:
 
 ################################# INFINITE LOOP #############################################################################
 
-
     # Continue to loop
     while True:
 
@@ -299,7 +321,7 @@ try:
                 hum_score /= (100 - hum_baseline)
                 hum_score *= (hum_weighting * 100)
 
-	    # otherwise if the humidity value is below the optimum value of 40
+            # otherwise if the humidity value is below the optimum value of 40
             # calculate the precentage that humidity contributes to the 25% of the IAQ
             else:
                 hum_score = (hum_baseline + hum_offset)
@@ -315,7 +337,7 @@ try:
                 gas_score = 100 - (hum_weighting * 100)
 
             # Calculate air_quality_score.
-            index_air_quality = hum_score + gas_score
+            index_air_quality = (100 - (hum_score + gas_score)) * 5
 
             # get the temperature reading
             temp = round(sensor.data.temperature, 1)
@@ -324,13 +346,27 @@ try:
 
             # sends the data to the cloud IoTs Blynk and Thingspeak
             WriteDataToCloudIoTs(temp, hum, iaq)
-	    # checks if a notification to the user is needed based on the current sensor values
-	    isNotificationNeeded(temp, hum, iaq)
 
-            # update the previous measurement for the next loop
-            previousTemp = temp
-            previousHum = hum
-            previousIAQ = iaq
+            # if the user has no remote access to devices do a presence detection
+            # to check if they are home
+            if doArpScan:
+                notify = arp_scan()
+
+            # if the user is home or they have remote access to devices check if they need a notification
+            if notify:
+                print previousHum
+                print previousTemp
+                print previousIaq
+                isNotificationNeeded(temp, hum, iaq)
+
+                # update the previous measurement for the next loop
+                previousTemp = temp
+                previousHum = hum
+                previousIaq = iaq
+            else:
+                # reset the values so when the user returns home,
+                # a check will be done to see if the current values are out of the users ideal range
+                setPreviousValues()
 
             # print message to terminal
             print('temp: {0:.2f} Celsius, humidity: {1:.2f} %RH, air quality: {2:.2f}'.format(
@@ -338,7 +374,7 @@ try:
                 hum,
                 iaq))
             # sleep for 1 Minute
-            time.sleep(60)
+            time.sleep(15)
 
 # if there is a keyboard interrupt do nothing
 except KeyboardInterrupt:

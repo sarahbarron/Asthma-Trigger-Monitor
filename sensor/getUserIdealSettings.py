@@ -1,7 +1,7 @@
 import json
 
 
-def allSettings():
+def getAllSettings():
     with open('AsthmaTriggerSettings/settings.json') as json_file:
         settings = json.load(json_file)
 
