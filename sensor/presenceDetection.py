@@ -26,12 +26,6 @@ def arp_scan():
         		mac=splitArray[1]
         		macs.append(mac)
 
-#		bluetoothScan = subprocess.check_output('sudo hcitool scan', shell=True)
-#		for i in range(len(macs)):
-#                   if macs[i] in bluetoothScan:
-#                         print 'Home'
-#                         return True
-
                 arpScan = subprocess.check_output('sudo arp-scan -l', shell=True)
 		for i in range(len(macs)):
 			if macs[i] in arpScan:
