@@ -38,7 +38,12 @@ echo "HUMIDITY:"
 echo "You will be notified if the the humidity goes below $currentMinHum %RH or above $currentMaxHum %RH"
 echo
 echo "INDOOR AIR QUALITY"
-echo "You will be notified if the the indoor air quality goes below $currentMinIaq IAQ or above $currentMaxIaq IAQ"
+if [ "$currentMinIaq" == "0" ]
+then
+	echo "You will be notified if the the indoor air quality goes above $currentMaxIaq IAQ"
+else
+	echo "You will be notified if the the indoor air quality goes below $currentMinIaq IAQ or above $currentMaxIaq IAQ"
+fi
 echo
 echo "REMOTE ACCESS"
 

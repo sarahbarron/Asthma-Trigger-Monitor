@@ -45,6 +45,7 @@ do
 case $name in
 
 "START SENSOR")
+	clear
         python sensor/indoor-air-quality.py
         ;;
 
@@ -58,7 +59,7 @@ case $name in
 	currentRemoteAccess=$(grep "remote"  AsthmaTriggerSettings/settings.json| awk '{print $2}' | sed 's/"/ /g')
 
 	echo
-	echo "THE IDEAL SENSOR SETTINGS ARE:"
+	echo "CURRENT SETTINGS ARE:"
 	echo
 	echo "TEMPERATURE: $currentMinTemp C - $currentMaxTemp C"
 	echo

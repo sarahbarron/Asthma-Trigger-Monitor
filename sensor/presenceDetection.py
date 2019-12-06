@@ -35,7 +35,7 @@ def arp_scan():
                 arpScan = subprocess.check_output('sudo arp-scan -l', shell=True)
 		for i in range(len(macs)):
 			if macs[i] in arpScan:
-				print 'Home'
+				print 'Home notifications can be sent'
 				return True
 
 
