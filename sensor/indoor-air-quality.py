@@ -57,7 +57,6 @@ def WriteDataToCloudIoTs(temp, hum, aqi):
     # send the data to thingspeak in the query string
     conn = urllib2.urlopen(
         baseURL + '&field1=%s&field2=%s&field3=%s' % (temp, hum, aqi))
-    print(conn.read())
     # Closing the connection
     conn.close()
 
@@ -244,7 +243,7 @@ sensor.select_gas_heater_profile(0)
 # burn_in_time (in seconds) is kept track of.
 start_time = time.time()
 curr_time = time.time()
-burn_in_time = 5
+burn_in_time = 300
 
 # create an array to store burn in data
 burn_in_data = []
@@ -335,7 +334,6 @@ try:
             if doArpScan:
                 notify = arp_scan()
 
-	    print (notify)
             # if the user is home or they have remote access to devices check if they need a notification
             if notify:
 		isNotificationNeeded(temp, hum, aqi)
@@ -356,8 +354,8 @@ try:
                 temp,
                 hum,
                 aqi))
-            # sleep for 1 Minute
-            time.sleep(10)
+            # sleep for 15 seconds
+            time.sleep(15)
 
 # if there is a keyboard interrupt do nothing
 except KeyboardInterrupt:
