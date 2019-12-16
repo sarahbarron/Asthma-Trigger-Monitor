@@ -8,9 +8,8 @@
 # Humidity = 30% - 50% RH
 # Indoor Air Quality = 0 - 100 IAQ
 # The user has the option to change these settings to values that suit their
-# Asthma condition better but are not allowed to set values that would be 
-# considered unhealty for Asthma Sufferes 
-# eg: max humidity can only be 59%RH as above this level can encourage mold growth
+# Asthma condition but are not allowed to set values that would be
+# considered unhealty for Asthma Sufferes
 
 
 
@@ -56,7 +55,9 @@ fi
 
 # Initial variable for yes or no set to blank
 YorN=""
+# Return the lowest value that is acceptable by the required sensor type
 lowerLevel=$(grep "$min" AsthmaTriggerSettings/settings.json| awk '{print $2}')
+# Return the highest value that is acceptable by the required sensor type
 higherLevel=$(grep "$max" AsthmaTriggerSettings/settings.json| awk '{print $2}')
 
 # This is a Function to check if a user has entered exit in the
@@ -116,9 +117,9 @@ then
 
 	lowerLevel=$newLowerLevel
 
-	# if the user enters the max level that can be set  as their ideal lowest humidity level 
-	# then the higher humidty level is set to  the same value
-	# ask the user to enter the higher humidity level they want
+	# if the user enters the max level that can be set  as their ideal lowest level 
+	# then the higher level is also set to the same value
+	# otherwise ask the user to enter the higher humidity level they want
 	if [[ $lowerLevel -ne $maxLevel ]]
 	then
 		echo
@@ -136,11 +137,11 @@ then
         	done
 		higherLevel=$newHigherLevel
 	fi
-	higherLevel=$newHigherLevel
 
 fi
 
 
+# Replace the old settings with the new settings in the settings.json file
 sed -i "s/$min.*/$min\": $lowerLevel ,/" AsthmaTriggerSettings/settings.json
 sed -i "s/$max.*/$max\": $higherLevel ,/" AsthmaTriggerSettings/settings.json
 

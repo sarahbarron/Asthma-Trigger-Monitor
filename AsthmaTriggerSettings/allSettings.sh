@@ -19,6 +19,8 @@ then
 fi
 
 }
+
+# read in the settings from the settings.json file
 currentMinTemp=$(grep "minTemp" AsthmaTriggerSettings/settings.json| awk '{print $2}')
 currentMaxTemp=$(grep "maxTemp" AsthmaTriggerSettings/settings.json| awk '{print $2}')
 currentMinHum=$(grep "minHum" AsthmaTriggerSettings/settings.json| awk '{print $2}')
@@ -63,6 +65,9 @@ do
 	CheckForExit "$YorN"
 done
 
+# If the user does not want to keep the current settings. Go through each sensor type and
+# ask they user if they want to change the notification range on that sensor type
+# Run the singleSettings.sh file for each of the sensor ranges the user wants to change
 if [ "$YorN" = 'n' ] || [ "$YorN" = 'N' ]
 then
 
@@ -76,6 +81,7 @@ then
         	read YorN
         	CheckForExit "$YorN"
 	done
+
 
 	if [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ]
 	then
