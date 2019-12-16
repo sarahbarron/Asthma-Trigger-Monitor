@@ -8,24 +8,24 @@ import blynklib
 import os
 from getUserIdealSettings import getAllSettings
 from wia import Wia
-from presenceDetection import arp_scan
+from presenceDetection import presence_detection
 
 
 ###################### USER SETTINGSS #############################################################################################
 
 # Get user settings
-(minTemp, maxTemp, minHum, maxHum, minAqi, maxaqi, remoteAccess) = getAllSettings()
+(minTemp, maxTemp, minHum, maxHum, minAqi, maxAqi, remoteAccess) = getAllSettings()
 userRemoteAccess = str(remoteAccess)
 
 # if the user has remote access to home devices don't do any arp scans (set to false)
 # Otherwise do an arp scan to see if someone is home
 if userRemoteAccess == 'y':
-    doArpScan = False
+    doPresenceScan = False
     notify = True
 else:
-    doArpScan = True
+    doPresenceScan = True
 
-# Previous Values set to ideal min values on first run of the program 
+# Previous Values set to ideal min values on first run of the program
 # to compare the current temperature values against.
 # This comparison will be done to check if a notification needs to be sent
 previousTemp = minTemp
@@ -65,12 +65,13 @@ def WriteDataToCloudIoTs(temp, hum, aqi):
     wia.Event.publish(name="humidity", data=hum)
     wia.Event.publish(name="aqi", data=aqi)
 
+    blynk.run()
     # set the temperature pin colors for Blynk
     if temp < 18 or temp > 21:
-        # if temp is between 16 and 23 set to orange
-        if temp >= 16 and temp <= 23:
+        # if temp is between 21 - 24 set to orange
+        if temp >= 18 and temp <= 24:
             blynk.set_property(1, 'color', '#FF7E00')
-        # if temp is less than 16 or greater than 23 set color to red
+        # if temp is less than 18 or greater than 24 set color to red
         else:
             blynk.set_property(1, 'color', '#FF0400')
     # if temp is in range 18-21 set color to green
@@ -79,11 +80,11 @@ def WriteDataToCloudIoTs(temp, hum, aqi):
 
     # set the humidity pin colors
     if hum > 50 or hum < 30:
-        # if humidity is out of ideal range and is less than 55 or greater than 25
+        # if humidity is out of ideal range and is less than 60 or greater than 20
         # set the color to orange
-        if hum <= 55 and hum >= 25:
+        if hum <= 60 and hum >= 20:
             blynk.set_property(2, 'color', '#FF7E00')
-        # if humidity is greater than 55 or less than 25 set to red
+        # if humidity is greater than 60 or less than 20 set to red
         else:
             blynk.set_property(2, 'color', '#FF0400')
     # otherwise if it is in range set it to green
@@ -117,6 +118,8 @@ def WriteDataToCloudIoTs(temp, hum, aqi):
     blynk.virtual_write(3, aqi)
 
 # Function to check if a notification to blynk is needed
+
+
 def isNotificationNeeded(temp, hum, aqi):
     # set send notification to false initially
     tempSendNotification = False
@@ -134,8 +137,8 @@ def isNotificationNeeded(temp, hum, aqi):
     if(previousHum >= minHum and previousHum <= maxHum):
         if(hum < minHum or hum > maxHum):
             humSendNotification = True
-    if(previousAqi >= minAqi or previousAqi <= maxaqi):
-        if(aqi < minAqi or aqi > maxaqi):
+    if(previousAqi >= minAqi and previousAqi <= maxAqi):
+        if(aqi < minAqi or aqi > maxAqi):
             aqiSendNotification = True
 
     # if any of the values go from in range to out of range a blynk notification
@@ -195,7 +198,7 @@ def blynkNotification(temp, hum, aqi):
 
     # if the aqi is out of range set the
     # appropriate message
-    if aqi > -1 and aqi > maxaqi:
+    if aqi > -1 and aqi > maxAqi:
 
         aqimeasurement = 'Index Air Quality (aqi): '+str(aqi)+' : '
         aqicauses = "\n- Some causes: gas, fire, dust, smoking, hairspray etc."
@@ -215,7 +218,7 @@ def blynkNotification(temp, hum, aqi):
 
     # append the messages
     message = tempMessage+'\n\n'+humMessage+'\n\n'+aqiMessage
-
+    blynk.run()
     # send the blynk notification
     blynk.notify(message)
 
@@ -243,7 +246,7 @@ sensor.select_gas_heater_profile(0)
 # burn_in_time (in seconds) is kept track of.
 start_time = time.time()
 curr_time = time.time()
-burn_in_time = 300
+burn_in_time = 30
 
 # create an array to store burn in data
 burn_in_data = []
@@ -310,7 +313,7 @@ try:
                 hum_score *= (hum_weighting * 100)
 
             # Calculate gas_score as the distance from the gas_baseline.
-	    # This contributes to 75% of teh aqi
+            # This contributes to 75% of teh aqi
             if gas_offset > 0:
                 gas_score = (gas / gas_baseline)
                 gas_score *= (100 - (hum_weighting * 100))
@@ -329,15 +332,22 @@ try:
             # sends the data to the cloud IoTs Blynk and Thingspeak
             WriteDataToCloudIoTs(temp, hum, aqi)
 
+
             # if the user has no remote access to devices do a presence detection
             # to check if they are home
-            if doArpScan:
-                notify = arp_scan()
+            if doPresenceScan:
+               notify = presence_detection()
+
+	    # print message to terminal
+            print('temp: {0:.2f} Celsius, humidity: {1:.2f} %RH, air quality: {2:.2f}'.format(
+                temp,
+                hum,
+                aqi))
 
             # if the user is home or they have remote access to devices check if they need a notification
             if notify:
-		isNotificationNeeded(temp, hum, aqi)
-		# update the previous measurement for the next loop
+                isNotificationNeeded(temp, hum, aqi)
+                # update the previous measurement for the next loop
                 previousTemp = temp
                 previousHum = hum
                 previousAqi = aqi
@@ -345,15 +355,10 @@ try:
                 # reset the values so when the user returns home,
                 # a check will be done to see if the current values are out of the users ideal range
                 # setPreviousValues()
-		previousTemp = minTemp
-		previousHum = minHum
-    		previousAqi = minAqi
+                previousTemp = minTemp
+                previousHum = minHum
+                previousAqi = minAqi
 
-            # print message to terminal
-            print('temp: {0:.2f} Celsius, humidity: {1:.2f} %RH, air quality: {2:.2f}'.format(
-                temp,
-                hum,
-                aqi))
             # sleep for 15 seconds
             time.sleep(15)
 

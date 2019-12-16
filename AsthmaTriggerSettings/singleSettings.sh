@@ -20,10 +20,10 @@ then
 	idealMin=0
 	idealMax=100
 	minLevel=0
-	maxLevel=150
+	maxLevel=100
 	sense="Indoor Air Quality"
 	symbol="IAQ"
-	pattern="^[0-9]$|^[1-9][0-9]$|^1[0-4][0-9]$|^150$"
+	pattern="^[0-9]$|^[1-9][0-9]$|^100$"
 	min="minIaq"
 	max="maxIaq"
 
@@ -32,11 +32,11 @@ elif [ "$1" == "temp" ]
 then
 	idealMin=18
 	idealMax=21
-	minLevel=16
-        maxLevel=23
+	minLevel=18
+        maxLevel=24
         sense="Temperature"
         symbol="C"
-	pattern="^1[6-9]$|^2[0-3]$"
+	pattern="^1[8-9]$|^2[0-4]$"
 	min="minTemp"
 	max="maxTemp"
 
@@ -45,11 +45,11 @@ elif [ "$1" == "hum" ]
 then
 	idealMin=30
 	idealMax=50
-        minLevel=25
-        maxLevel=55
+        minLevel=30
+        maxLevel=50
         sense="Humidity"
         symbol='RH'
-	pattern="^2[5-9]$|^3[0-9]$|^4[0-9]$|^5[0-5]$"
+	pattern="^3[0-9]$|^4[0-9]$|^50$"
 	min="minHum"
 	max="maxHum"
 fi

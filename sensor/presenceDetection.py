@@ -4,10 +4,10 @@
 import subprocess
 import logging 
 import os
-# Do an arp-scan on the network and check if a mac address from the devices.dat file 
-# is included in the arp scan. If it is the person is home if its not the person is
+# Scan the network and check if a mac address from the devices.dat file 
+# is included in the Scan. If it is the person is home if its not the person is
 # not at home
-def arp_scan():
+def presence_detection():
 	try:
 		# MAC addresses of devices
 		macs=[]
@@ -15,6 +15,8 @@ def arp_scan():
 		# read in the contents of the device.dat file which contains names and mac addresses
 		# of known devices in the house.
 		file=open("sensor/home-devices.dat","r")
+		scan = subprocess.check_output('sudo arp-scan -l', shell=True)
+		scan = scan.lower()
 
 		# loop through each line of the file
 		# For each line split the line and store it as an array
@@ -26,13 +28,12 @@ def arp_scan():
         		mac=splitArray[1]
         		macs.append(mac)
 
-                arpScan = subprocess.check_output('sudo arp-scan -l', shell=True)
 		for i in range(len(macs)):
-			if macs[i] in arpScan:
+			if macs[i] in scan:
 				print 'Home notifications can be sent'
 				return True
 
-
+		# Otherwise nobody is home
 		print "Nobody is Home don't send notifications"
 		return False
 
