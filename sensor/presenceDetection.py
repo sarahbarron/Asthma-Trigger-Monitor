@@ -1,11 +1,14 @@
 #!/usr/bin/env python
-#coding=utf-8
+
+# Author: Sarah Barron
+# Module: Computer Systems and Networks
+# Assignment-2: IoT
 
 import subprocess
-import logging 
+import logging
 import os
 
-# Scan the network and check if a mac address from the devices.dat file 
+# Scan the network and check if a mac address from the devices.dat file
 # is included in the Scan. If it is the person is home if its not the person is
 # not at home
 def presence_detection():

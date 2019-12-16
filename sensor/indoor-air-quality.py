@@ -1,5 +1,15 @@
 #!/usr/bin/env python
 
+# Author: Sarah Barron
+# Module: Computer Systems and Networks
+# Assignment-2: IoT 
+
+
+# Main program for the asthma monitor
+# sensor reads in data
+# data readings are sent to IoT platforms blynk, wia and thingspeak
+# notifications are sent to blynk if sensor readings go out of range when there is people in the house
+
 import bme680
 import time
 import urllib2
@@ -17,16 +27,16 @@ from presenceDetection import presence_detection
 (minTemp, maxTemp, minHum, maxHum, minAqi, maxAqi, remoteAccess) = getAllSettings()
 userRemoteAccess = str(remoteAccess)
 
-# if the user has remote access to home devices don't do any arp scans (set to false)
-# Otherwise do an arp scan to see if someone is home
+# if the user has remote access to devices such as heating and humidifiers arp scans will not be required (set to false)
 if userRemoteAccess == 'y':
     doPresenceScan = False
     notify = True
+# otherwise the user does not have access to devices so don't sent notifications
 else:
     doPresenceScan = True
 
 # Previous Values set to ideal min values on first run of the program
-# to compare the current temperature values against.
+# to compare the current values against.
 # This comparison will be done to check if a notification needs to be sent
 previousTemp = minTemp
 previousHum = minHum
@@ -65,7 +75,6 @@ def WriteDataToCloudIoTs(temp, hum, aqi):
     wia.Event.publish(name="humidity", data=hum)
     wia.Event.publish(name="aqi", data=aqi)
 
-    blynk.run()
     # set the temperature pin colors for Blynk
     if temp < 18 or temp > 21:
         # if temp is between 21 - 24 set to orange
@@ -117,8 +126,8 @@ def WriteDataToCloudIoTs(temp, hum, aqi):
     blynk.virtual_write(2, hum)
     blynk.virtual_write(3, aqi)
 
-# Function to check if a notification to blynk is needed
 
+# Function to check if a notification to blynk is needed
 
 def isNotificationNeeded(temp, hum, aqi):
     # set send notification to false initially
@@ -218,7 +227,6 @@ def blynkNotification(temp, hum, aqi):
 
     # append the messages
     message = tempMessage+'\n\n'+humMessage+'\n\n'+aqiMessage
-    blynk.run()
     # send the blynk notification
     blynk.notify(message)
 

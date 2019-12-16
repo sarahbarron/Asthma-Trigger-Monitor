@@ -1,5 +1,14 @@
+#!/usr/bin/env python
+
+# Author: Sarah Barron
+# Module: Computer Systems and Networks
+# Assignment-2: IoT
+
 import json
 
+# read in the contents of the settings.json file
+# assign values to the min and max sensor values and 
+# return the values to the main program
 
 def getAllSettings():
     with open('AsthmaTriggerSettings/settings.json') as json_file:

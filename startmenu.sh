@@ -49,6 +49,7 @@ case $name in
         python sensor/indoor-air-quality.py
         ;;
 
+# View the current min and max sensor settings
 "View Current Settings")
 	currentMinTemp=$(grep "minTemp" AsthmaTriggerSettings/settings.json| awk '{print $2}')
 	currentMaxTemp=$(grep "maxTemp"  AsthmaTriggerSettings/settings.json| awk '{print $2}')
@@ -72,31 +73,37 @@ case $name in
 	echo "You will be notified if the sensor readings go outside of the above ranges"
 	;;
 
+# Set all the users ideal sensor settings
 "Set Ideal Sensor Settings")
 	clear
 	./AsthmaTriggerSettings/allSettings.sh
 	;;
 
+# Set the user ideal temperature settings
 "Set Ideal Temperature")
 	clear
 	./AsthmaTriggerSettings/singleSettings.sh temp
 	;;
 
+# Set the users ideal Humidity settings
 "Set Ideal Humidity")
 	clear
 	./AsthmaTriggerSettings/singleSettings.sh hum
         ;;
 
-
+# Set the ideal Indoor Air Quality settings
 "Set Ideal Indoor Air Quality")
 	clear
  	./AsthmaTriggerSettings/singleSettings.sh iaq
         ;;
 
+# Set if the user has remote access to devices such as humidifiers or temperature
 "Set Remote Access")
 	echo REMOTE ACCESS SETTINGS
 	./AsthmaTriggerSettings/remoteAccess.sh
 	;;
+
+# Reset the min and max settings to the default settings
 "Reset to Default Settings")
         echo "{
         \"minHum\": 30 ,
@@ -111,7 +118,7 @@ case $name in
         echo "Settings have been reset to Ideal Temperature (18-21 Degrees Celsius), Humidity (30-50%RH), Indoor Air Quality (0-100 IAQ), Remote Access: No"
         ;;
 
-# If the user selects 6 to quit the program will be exited
+# Quit the program will be exited
 "Quit")
   	break
   	;;
