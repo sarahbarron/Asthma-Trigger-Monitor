@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Title -->
+  <title>Tullogher Rosbercon LGFA</title>
+  <!-- css style sheets -->
+  <link rel="stylesheet" href="./css/general-styles.css">
+  <link rel="stylesheet" href="./css/grid.css">
+  <link rel="stylesheet" href="./css/nav.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/center-sections.css">
+  <link rel="stylesheet" href="./css/images.css">
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css?family=Original+Surfer" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <!-- include the header section on all pages -->
+    <!-- header with club crest image and club name -->
+<header>
+    <img src="../images/tullogher-rosbercon-logo.jpg" alt="tullogher rosbercon club crest">
+    <h1>Tullogher Rosbercon LGFA</h1>
+</header>
+    <!-- include all content from the current page -->
+    <!-- include the navigation menu -->
+<!-- navigation menu -->
+<nav>
+  <ul>
+    <li id="home-page"><a href="index.html">Home</a></li>
+    <li><a href="#">About Us ></a>
+      <!-- dropdown menu -->
+      <ul id="dropdown">
+        <li id="our-club-page"><a href="our-club.html">Our Club</a></li>
+        <li id="committee-page"><a href="committee-and-trainers.html">Our Volunteers</a></li>
+      </ul>
+    </li>
+    <li id="fixtures-results-page"><a href="fixtures-and-results.html">Fixtures & Results</a></li>
+    <li id="events-page"><a href="news-and-events.html">News & Events</a></li>
+    <li id="skills-page"><a href="weekly-skill.html">Weekly Skill</a></li>
+    <li id="contact-page"><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- javascript adding the active class to the li of the active page -->
+<script>
+  document.querySelector("#skills-page").classList.add("active")
+</script>
+
+<!-- center section -->
+<section class="center-section">
+
+    <!-- heading -->
+    <h1>The Weekly Skill</h1>
+
+    <!-- The weekly skill section -->
+    <section>
+        <!-- heading -->
+        <h2>The Block</h2>
+        <!-- paragraph about this weeks skill -->
+        <p>This week we encourage all girls to practice the block. This skill is used to disposes an opponent and regain possession of the ball</p>
+        <p>Read through the skills card and watch the video below before you begin practicing</p>
+        <!-- image that is a link to a larger image of itself in new tab -->
+        <a href="https://ladiesgaelic.ie/wp-content/uploads/2018/02/The-block.jpg" target="_blank">
+            <img src="./images/the-block.jpg" alt="gaelic football the block skill"></a>
+        <!-- youtube video of this weeks skill embedded  -->
+        <iframe width="750" height="506" src="https://www.youtube.com/embed/uG0GWZ-vh1E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </section>
+</section>
+
+<!-- include the sidebar -->
+<!-- side bar showing latest results, fixtures, news and events -->
+<aside>
+    <h3>Latest Result</h3>
+    <p>U16 League: Tullogher 1-5 V Piltown 2-2</p>
+    <hr>
+    <h3>Next Fixture</h3>
+    <p>Sat 16th March - 2pm, Venue: Railyard </p>
+    <p>U12 Tullogher V Railyard</p>
+    <hr>
+    <h3>News</h3>
+    <h4>Registration</h4>
+    <img src="../images/register.jpg" alt="registration 31st May">
+    <p>Registration must be paid by 31st May 2019</p>
+    <p>Fees: €30 per child max of €60 per family</p>
+    <hr>
+    <h3>Upcoming Events</h3>
+    <h4>Cake Sale</h4>
+    <img src="../images/thumbnail-cake-sale.jpg" alt="cake sale 18th May 2019">
+    <p>Our annual cake sale will take place on Sunday 18th May 2019
+        after Mass in Listerlin. We would appreciate all your support
+        in helping our small club.
+    </p>
+</aside>
+    <!-- inclue the footer section on all pages -->
+    <!-- footer with copyright paragraph -->
+<footer>
+    <p>© 2019 Copyright: Tullogher Rosbercon Ladies Gaelic Football Club</p>
+</footer>
+  </div>
+</body>
+
+</html>

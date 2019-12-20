@@ -1,0 +1,45 @@
+/* Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor */
+
+/* css for images */
+
+/* center the club crest in the header 
+and images in the center section*/
+header img,
+.center-section img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* images in side bar */
+aside img {
+    border-radius: 20px;
+}
+
+/* main image on index page */
+#main-img {
+    width: 100vw;
+}
+
+/* index.html about section picture of medal presetation */
+#about-section img {
+    padding: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+}
+
+/* center section images */
+.center-section img {
+    border-radius: 150px;
+}
+
+/* figure captions of the photos on the our club page */
+figcaption {
+    text-align: center;
+    padding: 20px 0 50px 0;
+}

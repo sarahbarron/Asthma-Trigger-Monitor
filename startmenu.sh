@@ -51,6 +51,7 @@ case $name in
 
 # View the current min and max sensor settings
 "View Current Settings")
+        clear
 	currentMinTemp=$(grep "minTemp" AsthmaTriggerSettings/settings.json| awk '{print $2}')
 	currentMaxTemp=$(grep "maxTemp"  AsthmaTriggerSettings/settings.json| awk '{print $2}')
 	currentMinHum=$(grep "minHum"  AsthmaTriggerSettings/settings.json| awk '{print $2}')
@@ -99,12 +100,14 @@ case $name in
 
 # Set if the user has remote access to devices such as humidifiers or temperature
 "Set Remote Access")
+	clear
 	echo REMOTE ACCESS SETTINGS
 	./AsthmaTriggerSettings/remoteAccess.sh
 	;;
 
 # Reset the min and max settings to the default settings
 "Reset to Default Settings")
+	clear
         echo "{
         \"minHum\": 30 ,
         \"maxHum\": 50 ,
