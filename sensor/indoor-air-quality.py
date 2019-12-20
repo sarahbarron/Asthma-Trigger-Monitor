@@ -17,7 +17,6 @@ import time
 import blynklib
 import os
 from getUserIdealSettings import getAllSettings
-from wia import Wia
 from presenceDetection import presence_detection
 
 
@@ -53,11 +52,6 @@ BLYNK_AUTH = os.environ.get('BLYNK_AUTH')
 blynk = blynklib.Blynk(BLYNK_AUTH)
 
 
-# Inistialise Wia
-wia = Wia()
-wia.access_token = os.environ.get('WIA_TOKEN')
-
-
 #############################   IoT FUNCTIONS ##########################################################################################
 
 # Takes in the current temperature, humidity and aqi values
@@ -69,11 +63,6 @@ def WriteDataToCloudIoTs(temp, hum, aqi):
         baseURL + '&field1=%s&field2=%s&field3=%s' % (temp, hum, aqi))
     # Closing the connection
     conn.close()
-
-    # send values to WIA
-    wia.Event.publish(name="temperature", data=temp)
-    wia.Event.publish(name="humidity", data=hum)
-    wia.Event.publish(name="aqi", data=aqi)
 
     # set the temperature pin colors for Blynk
     if temp < 18 or temp > 21:
