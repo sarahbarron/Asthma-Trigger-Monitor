@@ -107,7 +107,7 @@ For temperature and humidity values in range will show as green, just out of ran
 
 The IAQ levels will show as their standard colors starting at a good level represented by green and as the IAQ gets worse the colors change from yellow to orange to red to purple and finally to burgundy.
 
-![Index Air Quality - Color Code](./images/IAQ)
+![Index Air Quality - Color Code](./public/images/IAQ.PNG)
 
 ##### Presence Detection
 There is a presence detection setup using arp-scan, this detects if someone is in the house. If no-one is home the notifications will not be sent as the user can not control devices such as temperature, humidifier, dehumidifier etc remotely. However, if the user has remote access to devices they can set this up in the setup or main menu. The user will then receive notifications at all times as they have remote access to devices.
@@ -211,7 +211,7 @@ key_mgmt=WPA-PSK
    - SDA1 (RPi) -> SDA (BME680)
    - SCL1 (RPi) -> SCL (BME680)
 
-![Raspberry Pi 3B GIPO](./images/sensor-rpi-setup.png)
+![Raspberry Pi 3B GIPO](./public/images/sensor-rpi-setup.png)
 
 - Turn the power to your Raspberry Pi back on 
 - Once the bootup is finished as we did previously connect to The Raspberry Pi via SSH Putty.
@@ -227,7 +227,7 @@ $cd ~
 ```
 - At this stage I ran into a problem `ImportError: No module named smbus`
 
-![ImportError: No module named smbus](./images/bme-setup1.png)
+![ImportError: No module named smbus](./public/images/bme-setup1.png)
 - To overcome this problem I installed smbus
 ```
 $ sudo pip install smbus
@@ -238,13 +238,13 @@ $ sudo raspi-config
 ```
 - Select option 5 Interfacing Options
 
-![5. Interfacing Options](./images/i2c-setup1.png)
+![5. Interfacing Options](./public/images/i2c-setup1.png)
 - Select P5 I2C
 
-![P5 I2C](./images/i2c-setup2.png)
+![P5 I2C](./public/images/i2c-setup2.png)
 - Select Yes
 
-![yes](./images/i2c-setup3.png)
+![yes](./public/images/i2c-setup3.png)
 - Finish
 - Enter the following command to reboot the Raspberry Pi
 ```
@@ -257,46 +257,48 @@ $ sudo /usr/sbin/i2cdetect -y 1
 ```
 - You should see a number where your device is see below my device was on 7 X 77
 
-![ic2detect](./images/i2c-setup4.png)
+![ic2detect](./public/images/i2c-setup4.png)
 
 ### IFTTT 
 - Register an account with [IFTTT](https://ifttt.com/discover)
 - In the navigation menu click on the profile symbol and select Create
 
-![Create IFTTT Applet](./images/ifttt1.png)
+![Create IFTTT Applet](./public/images/ifttt1.png)
 - Click on This
 
-![Click on This](./images/ifttt2.png)
+![Click on This](./public/images/ifttt2.png)
 - In the Search bar type in webhooks
 
-![search for webhooks](./images/ifttt-setup3.png)
+![search for webhooks](./public/images/ifttt-setup3.png)
 - Click on Receive a web request
+
+!{Receive a web request}(./public/images/ifttt-setup4.png)
 - Enter an Event Name
 
-![Enter an Event Name](./images/ifttt-setup5.png)
+![Enter an Event Name](./public/images/ifttt-setup5.png)
 - Click on +That
 
-![Click on That](./images/ifttt-setup6.png)
+![Click on That](./public/images/ifttt-setup6.png)
 - In the search box enter email and select Email
 
-![search for and select Email](./images/ifttt-setup7.png)
+![search for and select Email](./public/images/ifttt-setup7.png)
 - Click on Send me an email
 
-![Click on send me an email](./images/ifttt-setup8.png)
+![Click on send me an email](./public/images/ifttt-setup8.png)
 - Fill in the emails action fields (subject and body) as in the image below and click the create action button
 
-![fill in the action fields](./images/ifttt-setup9.png)
+![fill in the action fields](./public/images/ifttt-setup9.png)
 - Review and finish.
 - Copy the Make a POST or GET web request to URL
 
-![copy the url](./images/ifttt-setup12.png)
+![copy the url](./public/images/ifttt-setup12.png)
 
 
 ### ThingSpeak
 - Register an account with [ThingSpeak](https://thingspeak.com/)
 - Create a new channel called air-quality
 
-![new channel called air-quality](./images/thingpeak-setup1.PNG)
+![new channel called air-quality](./public/images/thingpeak-setup1.PNG)
 
 - like in the diagram above create 3 fields  
         - Field 1 - temperature
@@ -308,7 +310,7 @@ $ sudo /usr/sbin/i2cdetect -y 1
        - Click on the Gauge Image
        - And set up the settings as in the below diagrams for each field.
 
-![gauge settings](./images/thingspeak-gauge-settings.png) 
+![gauge settings](./public/images/thingspeak-gauge-settings.png) 
 - On the main menu click on Apps and then MATLAB Analysis
 - Click the New button to create a new MATLAB Analysis
 - Enter Trigger Email from IFTTT as the Name
@@ -350,7 +352,7 @@ webwrite(iftttURL,'value1',avgTemp,'value2',avgHum,'value3',avgIaq);
 - Create a time control go to Apps on the navigation bar and choose time control
 - Enter the settings as seen in the diagram below
 
-![Time Control Settings](./images/thingspeak-time-control.PNG) 
+![Time Control Settings](./public/images/thingspeak-time-control.PNG) 
 
 - Click Save TimeControl
 
@@ -364,43 +366,43 @@ webwrite(iftttURL,'value1',avgTemp,'value2',avgHum,'value3',avgIaq);
 - Set up 3 gauges:
    - Click on the + symbol
 
-     ![click the plus symbol](./images/blynk-plus.PNG)
+     ![click the plus symbol](./public/images/blynk-plus.PNG)
     - From the menu select Gauge
 
-      ![Select Gauge](./images/blynk-gauge1.PNG)
+      ![Select Gauge](./public/images/blynk-gauge1.PNG)
    - Click on the Gauge that has been created on the dashboard and set up each gauge like the diagram below
        - One Gauge for Temperature (V1)
        - One for Humidity (V2)
        - One for Index Air Quality (V3)
 
-   ![setting of 3 gauges](./images/blynk-gauge2.png)
+   ![setting of 3 gauges](./public/images/blynk-gauge2.png)
 - Set up 1 Super chart
    - Click on the + symbol
 
-   ![click on plus symbol](./images/blynk-plus.PNG)
+   ![click on plus symbol](./public/images/blynk-plus.PNG)
    - Select SuperChart from the menu 
    
-   ![Select SuperChart](./images/blynk-superchart-menu.PNG)
+   ![Select SuperChart](./public/images/blynk-superchart-menu.PNG)
    - Setup the SuperChart the same as the settings in the diagram below
    
-   ![SuperChart Settings](./images/blynk-superchart.PNG)
+   ![SuperChart Settings](./public/images/blynk-superchart.PNG)
    - For each of the Datastreams (Temp, Humidity, IAQ) click on the small side menu option
    
-   ![datastream settings](./images/blynk-superchart-sidemenu.PNG) 
+   ![datastream settings](./public/images/blynk-superchart-sidemenu.PNG) 
    - For each one set them up like the diagram below
    
-   ![Superchart settings](./images/blynk-superchart-settings.png)
+   ![Superchart settings](./public/images/blynk-superchart-settings.png)
 - To setup eventors to send Blynk notification reminders to take asthma medication/Inhaler
    - click on the plus symbol again
    
-   ![click on plus symbol](./images/blynk-plus.PNG)
+   ![click on plus symbol](./public/images/blynk-plus.PNG)
    - Select Eventor from the menu
    
-   ![select eventor](./images/eventor1.PNG)
+   ![select eventor](./public/images/eventor1.PNG)
    - Click the add new event button
    - setup 2 events with the details the same as the diagram below
    
-   ![eventor settings](./images/eventor3.PNG)
+   ![eventor settings](./public/images/eventor3.PNG)
 
 #### Setup Blynk on Raspberry Pi 3
 - Connect to the Raspberry Pi vi SSH and login
@@ -445,7 +447,7 @@ sudo npm install blynk-library --save
 - Retrieve your Blynk Auth Token from the email they sent you.
 - Retrieve your ThingSpeak Write API Key from your ThingSpeak Channel
 
-![ThingSpeak Write API KEY](./images/thingspeak-api-key.PNG)
+![ThingSpeak Write API KEY](./public/images/thingspeak-api-key.PNG)
 - Connect to the Raspberry Pi via SSH and login
 - Enter the following commands and substitute your Thingspeak API key and Blynk Authentication key in for the ***
 ```
