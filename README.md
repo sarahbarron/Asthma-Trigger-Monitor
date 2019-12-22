@@ -218,7 +218,7 @@ $ sudo pip install smbus
 $ sudo raspi-config
 ```
 - Select option 5 Interfacing Options
-![5. Interfacing Options](./images/i2C-setup1.png)
+![5. Interfacing Options](./images/i2c-setup1.png)
 - Select P5 I2C
 ![P5 I2C](./images/i2c-setup2.png)
 - Select Yes
@@ -265,7 +265,7 @@ $ sudo /usr/sbin/i2cdetect -y 1
 ### ThingSpeak
 - Register an account with [ThingSpeak](https://thingspeak.com/)
 - Create a new channel called air-quality
-![new channel called air-quality](./images/thingpeak-setup1.png)
+![new channel called air-quality](./images/thingpeak-setup1.PNG)
 
 - like in the diagram above create 3 fields  
         - Field 1 - temperature
@@ -318,7 +318,7 @@ webwrite(iftttURL,'value1',avgTemp,'value2',avgHum,'value3',avgIaq);
 - Create a time control go to Apps on the navigation bar and choose time control
 - Enter the settings as seen in the diagram below
 
-![Time Control Settings](./images/thingspeak-time-control.png) 
+![Time Control Settings](./images/thingspeak-time-control.PNG) 
 
 - Click Save TimeControl
 
@@ -331,31 +331,33 @@ webwrite(iftttURL,'value1',avgTemp,'value2',avgHum,'value3',avgIaq);
 
 - Set up 3 gauges:
    - Click on the + symbol
-     ![click the plus symbol](./images/blynk-plus.png)
+     ![click the plus symbol](./images/blynk-plus.PNG)
     - From the menu select Gauge
-      ![Select Gauge](./images/blynk-gauge1.png)
+      ![Select Gauge](./images/blynk-gauge1.PNG)
    - Click on the Gauge that has been created on the dashboard and set up each gauge like the diagram below
-   1 Gauge for Temperature (V1), 1 for Humidity (V2) and 1 for Index Air Quality (V3)
+       - One Gauge for Temperature (V1)
+       - One for Humidity (V2)
+       - One for Index Air Quality (V3)
    ![setting of 3 gauges](./images/blynk-gauge2.png)
 - Set up 1 Super chart
    - Click on the + symbol
-   ![click on plus symbol](./images/blynk-plus.png)
+   ![click on plus symbol](./images/blynk-plus.PNG)
    - Select SuperChart from the menu 
-   ![Select SuperChart](./images/blynk-superchart-menu.png)
+   ![Select SuperChart](./images/blynk-superchart-menu.PNG)
    - Setup the SuperChart the same as the settings in the diagram below
-   ![SuperChart Settings](./images/blynk-superchart.png)
+   ![SuperChart Settings](./images/blynk-superchart.PNG)
    - For each of the Datastreams (Temp, Humidity, IAQ) click on the small side menu option
-   ![datastream settings](./images/blynk-superchart-sidemenu.png) 
+   ![datastream settings](./images/blynk-superchart-sidemenu.PNG) 
    - For each one set them up like the diagram below
    ![Superchart settings](./images/blynk-superchart-settings.png)
 - To setup eventors to send Blynk notification reminders to take asthma medication/Inhaler
    - click on the plus symbol again
-   ![click on plus symbol](./images/blynk-plus.png)
+   ![click on plus symbol](./images/blynk-plus.PNG)
    - Select Eventor from the menu
-   ![select eventor](./images/eventor1.png)
+   ![select eventor](./images/eventor1.PNG)
    - Click the add new event button
    - setup 2 events with the details the same as the diagram below
-   ![eventor settings](./images/eventor3.png)
+   ![eventor settings](./images/eventor3.PNG)
 
 #### Setup Blynk on Raspberry Pi 3
 - Connect to the Raspberry Pi vi SSH and login
@@ -425,15 +427,15 @@ $ ./startmenu.sh
 ```
 - In the Blynk app make sure to press the play button to run the App.
 - This will start your menu there is 9 options
-  ..1. START SENSOR - this starts the sensor transmitting temperature, humidity and IAQ data to IoT platforms Blynk and Thingspeak.
-  ..2. View sensor settings - allows you view the current range settings.
-  ..3. Setup main settings - Allows you change the default settings for the ranges you want to receive notifications for
-  ..4. Setup Temperature Range - Allows you change the default settings for the temperature range.
-  ..5. Setup Humidity Range - Allows you change the default settings for the Humidity range.
-  ..6. Setup IAQ Range - Allows you change the default settings for the IAQ range.
-  ..7. Setup Remote Access - Allows you enter y or n to indicate if you do or do not have remote access to devices.
-  ..8. Reset settings to default settings - Resets the ranges back to the default ranges of temperature (18-21 degrees Celsius), humidity (30-50% RH), Index Air Quality(0-100 IAQ).
-  ..9. Quit - allows you quit the program
+1. START SENSOR - this starts the sensor transmitting temperature, humidity and IAQ data to IoT platforms Blynk and Thingspeak.
+2. View sensor settings - allows you view the current range settings.
+3. Setup main settings - Allows you change the default settings for the ranges you want to receive notifications for
+4. Setup Temperature Range - Allows you change the default settings for the temperature range.
+5. Setup Humidity Range - Allows you change the default settings for the Humidity range.
+6. Setup IAQ Range - Allows you change the default settings for the IAQ range.
+7. Setup Remote Access - Allows you enter y or n to indicate if you do or do not have remote access to devices.
+8. Reset settings to default settings - Resets the ranges back to the default ranges of temperature (18-21 degrees Celsius), humidity (30-50% RH), Index Air Quality(0-100 IAQ).
+9. Quit - allows you quit the program
 
 - To use the default settings and run the program enter 1 into menu prompt 
 
