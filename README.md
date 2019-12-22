@@ -18,7 +18,7 @@ As a student at Waterford Institute of Technology one of the modules I am studyi
      *   See my proposal [here](proposal.html)
 *   Create a working project using networking/IoT standards & protocols.    
       *   I used HTTP, ARP, I2C protocol and Wireless WIFI
-      *   Requires a "physical" aspect – sensors/devices    
+*   Requires a "physical" aspect – sensors/devices    
       *   I used a Raspberry Pi 3B and connected a BME680 sensor to it reading in current temperature, humidity and gas data
 *   Present and communicate your work in a clear, correct manner    
       *   I presented the project with a [Git Repository,](https://github.com/sarahbarron/Asthma-Trigger-Monitor)    
