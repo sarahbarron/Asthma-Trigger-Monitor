@@ -1,0 +1,374 @@
+<!--  Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
+ -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Title -->
+  <title>Air Quality Monitor</title>
+  <!-- css style sheets -->
+  <link rel="stylesheet" href="./css/general-styles.css">
+  <link rel="stylesheet" href="./css/grid.css">
+  <link rel="stylesheet" href="./css/nav.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/center-sections.css">
+  <link rel="stylesheet" href="./css/images.css">
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js">
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- include all content from the current page -->
+    <!-- Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
+-->
+<!-- include the navigation menu -->
+<!-- navigation menu -->
+<nav class="ui inverted menu">
+  <div class="header item">
+    <a href="index.html">Indoor Air Quality for Asthma Sufferers</a>
+  </div>
+  <ul>
+    <li id="home"><a href="index.html">Home</a></li>
+    <li id="about"><a href="about.html">About</a></li>
+    <li id="proposal"><a href="proposal.html">Proposal</a></li>
+    <li id="graphics"><a href="project-graphics-and-benchmarks.html">Graphics and Benchmarks</a></li>
+    <li id="details"><a href="project-details.html">Project Details</a></li>
+    <li id="setup"><a href="setup.html">Setup Project</a></li>
+    <li id="video"><a href="video.html">Video</a></li>
+    <li id="git"><a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor" target="_blank"><i class="big github icon"></i></a></li>
+  </ul>
+</nav>
+<!-- javascript adding the active class to the li of the active page -->
+<script>
+  document.querySelector("#setup").classList.add("active")
+</script>
+<section id="setup" class="center-section">
+    <h1>Setup the project</h1>
+    <h2>Raspberry Pi 3B</h2>
+    <ul>
+        <li>Download <a href="https://www.7-zip.org/download.html" target="_blank">7-Zip</a> (windows)</li>
+        <li>Download <a href="https://www.balena.io/etcher/" target="_blank">Etcher</a></li>
+        <li>Download <a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank">Rasbian buster lite</a>
+        </li>
+        <li>Download <a href="https://putty.org/" target="_blank">Putty</a></li>
+        <li>Download <a href="https://notepad-plus-plus.org/downloads/" target="_blank">Notepad++</a> </li>
+        <li>Using 7-zip unzip the Raspbian buster lite image</li>
+        <li>Put the MicroSD card into the computers card reader</li>
+        <li>Open Etcher and select the Rasbian buster lite image file that was just downloaded.</li>
+        <li>Select the SD card you want to write the image to.</li>
+        <li>Click the Flash button and wait for the write to finish.</li>
+        <li>Open the MicroSD drive from the computer. </li>
+        <li>Inside the boot partition create an empty file called ssh</li>
+        <li>Inside the boot partition create a file called wpa_supplicant.conf using Notepad++ and enter the following
+            into this file (replace the SSID and PSK with your own WIFI SSID and PSK):</li>
+        <pre>
+country=IE
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+pdate_config=1
+network={
+    scan_ssid=1
+    ssid=&quot;YOUR SSID&quot;
+    psk=&quot;YOUR PSK&quot;
+    key_mgmt=WPA-PSK
+}
+</pre>
+        <li>Eject the MicroSD card from the computer and put it into the MicroSD slot on the Raspberry Pi.</li>
+        <li>Turn on the power</li>
+        <li>Open command prompt and check if the Raspberry Pi connected to the network using the command</li>
+        <pre>nmap -sn 192.168.8.0/24</pre>
+        <li>from this get the IP address of your Raspberry Pi</li>
+        <li>Open the secure shell Putty</li>
+        <li>Under the Host Name (or IP address) enter the Raspberry Pi&#39;s IP address and use Port 22</li>
+        <li>Enter the the user id </li>
+        <pre>pi</pre>
+        <li>and password</li>
+        <pre>raspberry</pre>
+        <p>you can change these in the raspi-config utility</p>
+        <li>This confirms you are able to login and connect to the Raspberry Pi. Now Disconnect from Putty and
+            Power off the Raspberry Pi in order to connect the BME680 sensor.</li>
+    </ul>
+    <h2>Connect the BME680 sensor to the Raspberry
+        Pi B3
+    </h2>
+    <ul>
+        <li>Using the Jumper wires connect the BME680 sensor to the Raspberry Pi connecting pins <ul>
+                <li>3.3V (RPi) -&gt; 3.3V (BME680)</li>
+                <li>gnd (RPi) -&gt; gnd (BME680)</li>
+                <li>SDA1 (RPi) -&gt; SDA (BME680)</li>
+                <li>SCL1 (RPi) -&gt; SCL (BME680)</li>
+            </ul>
+        </li>
+    </ul>
+    <img src="./images/sensor-rpi-setup.png" alt="Raspberry Pi 3B GIPO">
+    <ul>
+        <li>Turn the power to your Raspberry Pi back on </li>
+        <li>Once the bootup is finished as we did previously connect to The Raspberry Pi via SSH Putty.</li>
+        <li>Clone and install the BME680 python library using the following commands</li>
+        <pre>$ git clone <a href="https://github.com/pimoroni/bme680-python.git" target="_blank">https://github.com/pimoroni/bme680-python.git</a>
+ $ cd bme680-python/library
+ $ sudo python setup.py install
+ $ cd ~
+</pre>
+        <li>At this stage I ran into an ImportError no module named smbus</li>
+        <pre>ImportError: No module named smbus</pre>
+        <img src="./images/bme-setup1.png" alt="ImportError: No module named smbus">
+        <li>To overcome this problem I installed smbus</li>
+        <pre>$ sudo pip install smbus</pre>
+        <li>Enable the 12C Interface</li>
+        <pre>$ sudo raspi-config</pre>
+        <li>Select option 5 Interfacing Options</li>
+        <img src="./images/i2C-setup1.png" alt="5. Interfacing Options">
+        <li>Select P5 I2C</li>
+        <img src="./images/i2c-setup2.png" alt="P5 I2C">
+        <li>Select Yes</li>
+        <img src="./images/i2c-setup3.png" alt="yes">
+        <li>Finish</li>
+        <li>Enter the following command to reboot the Raspberry Pi</li>
+        <pre>$ sudo reboot</pre>
+        <li>Scan the I2C bus for your device. Install i2cdetect and run the command to detect devices on
+            the I2C bus</li>
+        <pre>$ sudo i2cdetect -y 1
+$ sudo /usr/sbin/i2cdetect -y 1</pre>
+        
+        <li>You should see a number where your device is see below my device was on 7 X 77</li>
+        <img src="./images/i2c-setup4.png" alt="ic2detect">
+    </ul>
+    <h2 id="ifttt">IFTTT</h2>
+    <ul>
+        <li>Register an account with <a href="https://ifttt.com/discover" target="_blank">IFTTT</a></li>
+        <li>In the navigation menu click on the profile symbol and select Create</li>
+        <img src="./images/ifttt1.png" alt="Create IFTTT Applet">
+        <li>Click on This</li>
+        <img src="./images/ifttt2.png" alt="Click on This">
+        <li>In the Search bar type in webhooks</li>
+        <img src="./images/ifttt-setup3.png" alt="search for webhooks">
+        <li>Click on Receive a web request</li>
+        <img src="./images/ifttt-setup4.png" alt="receive a web request">
+        <li>Enter an Event Name: asthma_sensor</li>
+        <img src="./images/ifttt-setup5.png" alt="Enter an Event Name">
+        <li>Click on +That</li>
+        <img src="./images/ifttt-setup6.png" alt="Click on That">
+        <li>In the search box enter email and select Email</li>
+        <img src="./images/ifttt-setup7.png" alt="search for and select Email">
+        <li>Click on Send me an email</li>
+        <img src="./images/ifttt-setup8.png" alt="Click on send me an email">
+        <li>Fill in the emails action fields (subject and body) as in the image below and click the
+            create action button</li>
+        <img src="./images/ifttt-setup9.png" alt="fill in the action fields">
+        <li>Review and finish.</li>
+        <li>Copy the Make a POST or GET web request to URL</li>
+        <img src="./images/ifttt-setup12.png" alt="copy the url">
+    </ul>
+    <h2 id="thingspeak">ThingSpeak</h2>
+    <ul>
+        <li>Register an account with <a href="https://thingspeak.com/" target="_blank">ThingSpeak</a></li>
+        <li>
+            <p>Create a new channel called air-quality
+                <img src="./images/thingpeak-setup1.png" alt="new channel called air-quality"></p>
+        </li>
+        <li>
+            <p>like in the diagram above create 3 fields </p>
+            <ul>
+                <li> Field 1 - temperature</li>
+                <li>Field 2 - humidity</li>
+                <li>Field 3 - Indoor Air Quality</li>
+            </ul>
+        </li>
+        <li>Save the channel</li>
+        <li>For each Field add a gauge</li>
+        <li>Add widget</li>
+        <li>Click on the Gauge Image</li>
+        <li>And set up the settings as in the below diagrams for each field.</li>
+        <img src="./images/thingspeak-gauge-settings.png" alt="gauge settings"> 
+        <li>On the main menu click on Apps and then MATLAB Analysis</li>
+        <li>Click the New button to create a new MATLAB Analysis</li>
+        <li>Enter Trigger Email from IFTTT as the Name</li>
+        <li>In the MATLAB pre section add the following pre:</li>
+        <pre>
+% Read the values in from Indoor Air Quality for the last 24 hours
+% Send an email via the IFTTT service with the daily averages
+%
+Store the channel ID for the Indoor Air Quality channel.
+% Substitute with your own channelID
+channelID = <em>**</em> ;
+% trigger url from IFTTT.
+ftttURL = &#39;<strong> PASTE THE IFTTT URL YOU COPIED EARLIER IN HERE </strong>&#39;;
+% Read API Key:
+% Substitute your ThingSpeak API Key here
+readAPIKey = &#39;<strong><em>*</em></strong>&#39;;
+% Read the 24 hours of moisture data from ThingSpeak.
+temperature = thingSpeakRead(channelID,&#39;NumDays&#39;,1,&#39;Fields&#39;,1,&#39;ReadKey&#39;,readAPIKey);
+humidity = thingSpeakRead(channelID,&#39;NumDays&#39;,1,&#39;Fields&#39;,2,&#39;ReadKey&#39;,readAPIKey);
+iaq = thingSpeakRead(channelID,&#39;NumDays&#39;,1,&#39;Fields&#39;,3,&#39;ReadKey&#39;,readAPIKey);
+% Calculate average values of temperature, humidity and indoor air quality
+avgTemp = mean(temperature, &#39;omitnan&#39;);
+avgTemp = round(avgTemp,2);
+avgHum = mean(humidity, &#39;omitnan&#39;);
+avgHum = round(avgHum,2);
+avgIaq = mean(iaq, &#39;omitnan&#39;);
+avgIaq = round(avgIaq,2);
+% send the email
+webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#39;,avgIaq);
+</pre>
+        <li>Create a time control go to Apps on the navigation bar and choose time control</li>
+        <li>Enter the settings as seen in the diagram below</li>
+        <img src="./images/thingspeak-time-control.png" alt="Time Control Settings">
+        <li>Click Save TimeControl</li>
+    </ul>
+    <h2 id="blynk">Blynk</h2>
+    <ul>
+        <li>Using your Smartphone download the <a href="https://blynk.io/en/getting-started" target="_blank">Blynk
+                App</a></li>
+        <li>Create a new account</li>
+        <li>Create a new project
+            <ul>
+                <li>Name: Air Quality</li>
+                <li>Choose Raspberry Pi 3</li>
+            </ul>
+        </li>
+        <li>Set up 3 gauges:
+            <ul>
+                <li>For each one click on the + symbol
+                    <img src="./images/blynk-plus.png" alt="click the plus symbol"></li>
+                <li>From the menu select Gauge
+                    <img src="./images/blynk-gauge1.png" alt="Select Gauge"></li>
+                <li>Click on the Gauge's that have been created on the dashboard and set up each gauge like the diagram
+                    below.
+                    <ul>
+                        <li>One Gauge for Temperature (V1)</li>
+                        <li>One for Humidity (V2)</li>
+                        <li>One for Index Air Quality (V3)</li>
+                    </ul>
+                    <img src="./images/blynk-gauge2.png" alt="setting of 3 gauges"></li>
+            </ul>
+        </li>
+        <li>Set up 1 Super chart
+            <ul>
+                <li>Click on the + symbol
+                    <img src="./images/blynk-plus.png" alt="click on plus symbol"></li>
+                <li>Select SuperChart from the menu
+                    <img src="./images/blynk-superchart-menu.png" alt="Select SuperChart">
+                </li>
+                <li>Setup the SuperChart the same as the settings in the diagram below
+                    <img src="./images/blynk-superchart.png" alt="SuperChart Settings"></li>
+                <li>For each of the Datastreams (Temp, Humidity, IAQ) click on the small
+                    side menu option
+                    <img src="./images/blynk-superchart-sidemenu.png" alt="datastream settings">
+                </li>
+                <li>For each one set them up like the diagram below
+                    <img src="./images/blynk-superchart-settings.png" alt="Superchart settings">
+                </li>
+            </ul>
+        </li>
+        <li>To setup eventors to send Blynk notification reminders to take asthma medication/Inhaler
+            <ul>
+                <li>click on the plus symbol again
+                    <img src="./images/blynk-plus.png" alt="click on plus symbol"></li>
+                <li>Select Eventor from the menu
+                    <img src="./images/eventor1.png" alt="select eventor"></li>
+                <li>Click the add new event button</li>
+                <li>setup 2 events with the details the same as the diagram below
+                    <img src="./images/eventor3.png" alt="eventor settings"></li>
+            </ul>
+        </li>
+    </ul>
+    <h2 id="setup-blynk-on-raspberry-pi-3">Setup Blynk on Raspberry Pi 3</h2>
+    <ul>
+        <li>Connect to the Raspberry Pi via SSH and login</li>
+        <li>Check if you have node installed on the Raspberry by entering the command</li>
+        <pre>$ node -V</pre>
+        <li>If node is installed it will return a version number. If the version number is not version 6 then you will
+            have to uninstall it and reinstall version 6 as follows.</li>
+        <li> If you need to uninstall node</li>
+        <pre>$ sudo apt-get purge node nodejs node.js -y
+$ sudo apt-get autoremove</pre>
+        <li>Install node version 6</li>
+        <pre>sudo su
+cd /opt
+wget <a href="https://nodejs.org/dist/v6.9.5/node-v6.9.5-linux-armv6l.tar.gz" target="_blank">https://nodejs.org/dist/v6.9.5/node-v6.9.5-linux-armv6l.tar.gz</a>
+-O - | tar -xz
+mv node-v6.9.5-linux-armv6l nodejs
+apt-get update &amp;&amp; apt-get upgrade
+apt-get install build-essential
+ln -s /opt/nodejs/bin/node /usr/bin/node
+ln -s /opt/nodejs/bin/node /usr/bin/nodejs
+ln -s /opt/nodejs/bin/npm /usr/bin/npm
+exit
+export PATH=$PATH:/opt/nodejs/bin/</pre>
+        <li>Install the blynk-library</li>
+        <pre>sudo npm install blynk-library --save</pre>
+    </ul>
+    <h2 id="setup-environmental-variables">Setup environmental variables</h2>
+    <ul>
+        <li>Retrieve your Blynk Auth Token from the email they sent you.</li>
+        <li>Retrieve your ThingSpeak Write API Key from your ThingSpeak Channel
+            <img src="./images/thingspeak-api-key.png" alt="ThingSpeak Write API KEY"></li>
+        <li>Connect to the Raspberry Pi via SSH and login</li>
+        <li>Enter the following commands and substitute your Thingspeak API key and Blynk
+            Authentication key in</li>
+        <pre>$ cd ~/
+$ nano .bash_profile
+export THINGSPEAK_WRITE_API= 'YOUR API KEY HERE'
+export BLYNK_AUTH= 'YOUR AUTH CODE HERE'
+CTRL+X and y to save
+        </pre>
+    </ul>
+    <h2>Clone project</h2>
+    <ul>
+        <li>Make a new directory and clone the project</li>
+        <pre>$git clone <a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor.git" target="_blank">https://github.com/sarahbarron/Asthma-Trigger-Monitor.git</a></pre>
+    </ul>
+    <h2>Run program</h2>
+    <ul>
+        <li>Add the MAC addresses for your smartphone into the
+            Asthma-Trigger-Monitor/AsthmaTriggerSettings/settings.json file</li>
+        <li>To run the start menu</li>
+        <pre>$ cd Asthma-Trigger-Monitor
+$ ./startmenu.sh
+    </pre>
+        <li>In the Blynk app make sure to press the play button to run the App.</li>
+        <li> This will start your menu there is 9 options
+            <ul>
+                <li> 1. START SENSOR - this starts the sensor transmitting temperature, humidity and IAQ data to IoT
+                    platforms Blynk and Thingspeak.</li>
+                <li> 2. View sensor settings - allows you view the current range settings.</li>
+                <li> 3. Setup main settings - Allows you change the default settings for the ranges you want to receive
+                    notifications for</li>
+                <li> 4. Setup Temperature Range - Allows you change the default settings for the temperature range.</li>
+                <li> 5. Setup Humidity Range - Allows you change the default settings for the Humidity range.</li>
+                <li> 6. Setup IAQ Range - Allows you change the default settings for the IAQ range.</li>
+                <li> 7. Setup Remote Access - Allows you enter y or n to indicate if you do or do not have remote access
+                    to
+                    devices.</li>
+                <li> 8. Reset settings to default settings - Resets the ranges back to the default ranges of temperature
+                    (18-21 degrees Celsius), humidity (30-50% RH), Index Air Quality(0-100 IAQ).
+                </li><li>Quit - allows you quit the program</li>
+            </ul>
+        </li>
+        <li> To use the default settings and run the program enter 1 into menu prompt</li>
+    </ul>
+</section>
+    <!-- inclue the footer section on all pages -->
+    <!-- footer with paragraph -->
+<footer>
+    <p>Sarah Barron - Hdip in Computer Science - Waterford Institute of Technology </p>
+    <p>Computer Systems and Networking - Assignment 2 - IoT's</p>
+    <p>e-mail: sarahflavin@yahoo.com </p>
+</footer>
+  </div>
+</body>
+
+</html>

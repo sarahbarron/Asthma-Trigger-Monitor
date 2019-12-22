@@ -1,0 +1,264 @@
+<!--  Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
+ -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Title -->
+  <title>Air Quality Monitor</title>
+  <!-- css style sheets -->
+  <link rel="stylesheet" href="./css/general-styles.css">
+  <link rel="stylesheet" href="./css/grid.css">
+  <link rel="stylesheet" href="./css/nav.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/center-sections.css">
+  <link rel="stylesheet" href="./css/images.css">
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js">
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- include all content from the current page -->
+    <!-- Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
+-->
+<!-- include the navigation menu -->
+<!-- navigation menu -->
+<nav class="ui inverted menu">
+  <div class="header item">
+    <a href="index.html">Indoor Air Quality for Asthma Sufferers</a>
+  </div>
+  <ul>
+    <li id="home"><a href="index.html">Home</a></li>
+    <li id="about"><a href="about.html">About</a></li>
+    <li id="proposal"><a href="proposal.html">Proposal</a></li>
+    <li id="graphics"><a href="project-graphics-and-benchmarks.html">Graphics and Benchmarks</a></li>
+    <li id="details"><a href="project-details.html">Project Details</a></li>
+    <li id="setup"><a href="setup.html">Setup Project</a></li>
+    <li id="video"><a href="video.html">Video</a></li>
+    <li id="git"><a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor" target="_blank"><i class="big github icon"></i></a></li>
+  </ul>
+</nav>
+<!-- javascript adding the active class to the li of the active page -->
+<script>
+  document.querySelector("#details").classList.add("active")
+</script>
+<section class="center-section">
+    <h1> Project Details</h1>
+    <h2>Temperature Details</h2>
+    <p>The general advice and from reading the <a href="https://apps.who.int/iris/bitstream/handle/10665/276001/9789241550376-eng.pdf?ua=1" target="_blank">World Health
+            Organization - Housing and Health Guidelines</a>, I set the default temperature range to between
+        18-21<span>&#176;</span> Celsius. However the maximum level a user can set the temperature to is
+        24<span>&#176;</span> Celsius as recommended by WHO. The ideal temperature is 21<span>&#176;</span> Celsius.
+    </p>
+    <h2>Humidity Details</h2>
+    <p>
+        Again the general advice for humidity or moisture levels for asthma sufferers is between 30 - 50% with an ideal
+        humidity level of 40%. The programs default settings is a range between 30 - 50%. A user has the choice to
+        narrow this range but can not increase the range, as outside this range would be unhealthy for asthma sufferers.
+    </p>
+    <h2>Index Air Quality Details</h2>
+    <p>
+        The Index Air Quality measurement is calculated using 20% Humidity : 80% Gas levels. I have set the default IAQ
+        range to between 0 and 100 as above this level can lead to members of sensitive groups to experience health
+        effects.
+    </p>
+    <p>
+        An IAQ of between 50-100 Air quality is acceptable; however, for some pollutants there may be a moderate health
+        concern
+        for a very small number of people who are unusually sensitive to air pollution. If the Asthma sufferer is
+        unusually sensitive they have the option to reduce the default IAQ level down to a level they are happy with.
+    </p>
+    <h2>Default Settings</h2>
+    <p>
+        Initially the user will either use the sensor with the default values:
+    </p>
+    <ul>
+        <li>Temperature: 18-21<span>&#176;</span> Celsius</li>
+        <li>Humidity: 30-50 %RH</li>
+        <li>Index Air Quality : 0-100 IAQ</li>
+    </ul>
+    <p>
+        or set their own values which must be set within healthy ranges for Asthma sufferers. This can be set up via a
+        shell scripting menu before the sensor program is run.
+    </p>
+    <h2>BME680 Sensor -> IoT's </h2>
+    <p>
+        The BME680 sensor which is attached to the Raspberry Pi 3B senses the temperature, humidity and gas levels every
+        15 seconds and the values are then sent to:
+        <ul>
+            <li> Blynk an IoT mobile application that controls hardware remotely</li>
+            <li>ThingSpeak an IoT application that stores and displays sensor values and reacts using MATLAB
+                Analysis, TimeControl and sends data to IFTTT an IoT application to manage services such as email.</li>
+        </ul>
+    </p>
+    <h2>Blynk </h2>
+    <p>
+        When the Temperature, Humidity or Air Quality goes out of range the user will be sent a Blynk notification to
+        inform them of this out of range value.</p>
+    <p>
+        Blynk displays the 3 sensor values in numeric gauge form and with a color system.</p>
+    <p>
+        For temperature and humidity values in range will show as green, just out of range will show as orange and a
+        further out of range level will show as red.</p>
+    <p>
+        The IAQ levels will show as their standard colors starting at a good level represented by green and as the IAQ
+        gets worse the colors change from yellow to orange to red to purple and finally to burgundy.</p>
+    <img src="./images/IAQ.PNG" alt="Indoor Air Quality">
+    <p>
+        Using Blynk and an Eventor, a notification is sent each morning and night to remind the user to take or give the
+        inhaler medication to the Asthma Sufferer.
+    </p>
+    <p>
+        The User can use Blynk's mobile App to view the current readings at any time and a line graph showing past
+        readings for up to 3 months.
+    </p>
+    <h2> Presence Detection </h2>
+    <p>
+        Presence detection is setup using arp-scan, this detects if someone is in the house. If no-one is home
+        the notifications will not be sent as the user can not control devices such as temperature, humidifier,
+        dehumidifier etc remotely. However, if the user has remote access to devices they can set this up in the setup
+        or main menu. The user will then receive notifications at all times as they have remote access to devices.
+    </p>
+    <h2>ThingSpeak</h2>
+    <p>
+        Data is stored, retrieved and displayed on a ThingSpeak Channel, for the user to view or analyse.
+        Every morning ThingSpeak has a time control setup to do MATLAB Analysis.
+    </p>
+    <p> The MATLAB analysis retrieves the previous 24 hours sensor readings. The average temperature, humidity and IAQ
+        levels are calculated. These values are sent using HTTP to IFTTT.
+    </p>
+    <h2>IFTTT</h2>
+    <p>
+        When IFTTT receives the trigger email each morning with the average values it enters these values into a
+        template email and sends the email to the user.
+    </p>
+    <h2>Website</h2>
+    <p>
+        If someone other than the person registered with ThingSpeak wants to view the current temperature, humidity or
+        Index Air Quality they can do so on this <a href="http://networking-iot-project.surge.sh/">website</a></p>
+    <h2>Tool and Technologies needed for this project</h2>
+    <ol>
+        <li>Wireless WIFI router - used to route data between devices.</li>
+        <li>Android Smartphone - for setting up the Blynk application and for receiving notifications.</li>
+        <li>Laptop with MicroSD Card Reader</li>
+        <li><a href="https://ie.farnell.com/element14/pi3-ibm-iot-learnkit/raspberry-pi-3-ibm-iot-learner/dp/2606882?ost=PI3+IBM+IOT+LEARNKIT&ICID=redirect-Y&CMP=os-geobanner-google" target="_blank">Raspberry
+                Pi 3B
+            </a>
+            – small, low cost computer which connects to a sensor.</li>
+        <li><a href="https://www.mikroe.com/environment-click" target="_blank">BME680</a> – environmental sensor which
+            measures
+            high-accuracy gas, humidity, temperature and pressure.</li>
+        <li>Jumper Wires</li>
+        <li><a href="https://i2c.info/" target="_blank">I2C Bus</a> serial communication protocol.</li>
+        <li>HTTP - Hyper Text Transfer Protocol used for communication/messaging between devices.</li>
+        <li><a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank">Raspbian buster lite</a>" –
+            raspberry Pi’s
+            operating system for headless use.</li>
+        <li>MicoSD Card</li>
+        <li><a href="https://www.balena.io/etcher/" target="_blank">Etcher</a> - to flash raspbian to the MicroSD Card.
+        </li>
+        <li><a href="https://notepad-plus-plus.org/downloads/" target="_blank">Notepad++</a>- for creating the
+            wpa_supplicant.conf
+            file
+        </li>
+        <li><a href="https://putty.org/" target="_blank">Putty</a> - SSH secure shell to connect to the Raspberry Pi.
+        </li>
+        <li><a href="https://blynk.io/" target="_blank">Blynk</a> - Internet Of Things mobile application to connect to
+            hardware
+            remotely and send notifications</li>
+        <li><a href="https://thingspeak.com/" target="_blank">ThingSpeak</a> - Internet Of Things application to store,
+            retrieve,
+            display, analyse and react to data.</li>
+        <li>MATLAB - a programming platform for numerical analysis.</li>
+        <li><a href="https://ifttt.com/" target="_blank">IFTTT</a> - Internet Of Things application to manage services
+            such as
+            email.
+        </li>
+        <li>Git – for version control</li>
+        <li><a href="https://github.com/" target="_blank">Github</a> – web based git version control repository hosting
+            service</li>
+        <li><a href="http://harpjs.com/" target="_blank">Harp JS</a> - local web server used prior to deployment of
+            website</li>
+        <li><a href="https://surge.sh/" target="_blank">Surge</a> - To deploy the website</li>
+        <li><a href="https://nodejs.org/en/" target="_blank">NodeJs</a> - JavaScript Runtime</li>
+        <li>HTML - Hypertext language markup language</li>
+        <li>CSS - Cascading Style Sheets</li>
+        <li><a href="https://www.python.org/downloads/release/python-2717/" target="_blank">Python</a> programming
+            language – a
+            general
+            purpose programming language that is widely used with the Raspberry PI.</li>
+        <li>Shell Scripting language - command line interpreter for the menu system</li>
+        <li>JSON - JavaScript Object Notation - for storing and retrieving user's ideal or default range settings.
+        </li>
+        <li>Libraries and packages I needed to install
+            <ul>
+                <li>bme680-python</li>
+                <li>smbus</li>
+                <li>ic2detect</li>
+                <li>harp</li>
+                <li>surge</li>
+                <li>node version 6</li>
+                <li> npm</li>
+                <li>blynk-library</li>
+            </ul>
+        </li>
+    </ol>
+    <h2>Things I tried but didn't work!</h2>
+    <h3>WIA</h3>
+    <p>I initially setup my data to be sent to WIA and was going to trigger my email from there, but there were a number
+        of issues. Initially I had the graphs set up and when i tried to embed the graphs into my website they did not
+        show. I contacted the customer help chat and was told this was not a feature they had setup even though they had
+        the embed code attached to the widget. In fairness to them they set it up straight away and within an hour or
+        two i was able to view the graphs. However the embedded digit values updated on the website instantly but the
+        line graphs did not update with live data, you needed to refresh the web page every time to see the current line
+        graphs that corresponded with the digit display. I sent messages to WIA a few times about this but got no reply
+        and their chat bot seems to be disabled now. I decided to change at this stage to ThingSpeak and was able to
+        embed all graphs into my website, you don't have to refresh your page to see current data, it updates
+        automatically and I was able to setup e-mail with IFTTT fairly easily. </p>
+    <h3>Presence detection - bluez bluetooth & nmap</h3>
+    <p>I find that arp-scan sometimes does not detect you when you are at home so i decided to try <a href="http://www.bluez.org/about/" target="_blank">bluez</a> a linux bluetooth protocol stack, to scan for
+        bluetooth devices. This worked at the beginning and seemed more accurate but it took longer and after a while
+        every time i ran a bluez scan it would cause the connection from my SSH to the Raspberry Pi to crash. I then
+        tried nmap and again this was more accurate but constant running of this command also caused the connection
+        between my SSH and Raspberry Pi to crash, so I reverted to arp-scan.</p>
+    <h2 id="references">References</h2>
+    <ul>
+        <li><a href="https://apps.who.int/iris/bitstream/handle/10665/276001/9789241550376-eng.pdf?ua=1" target="_blank">World Health
+                Organization - Housing and Health Guidelines 2018</a>
+        </li><li><a href="http://docs.blynk.cc/" target="_blank">Blynk Documentation</a></li>
+        <li><a href="https://uk.mathworks.com/help/thingspeak/" target="_blank">ThingSpeak Documentation</a>
+        </li>
+        <li><a href="https://uk.mathworks.com/help/thingspeak/analyze-channel-data-to-send-email-notification-from-ifttt.html" target="_blank">uk.mathworks.com</a>
+            - Connecting ThingSpeak to IFTTT to send an email</li>
+        <li>The <a href="https://www.mikroe.com/environment-click" target="_blank">BME680</a> had built in example
+            programs. One
+            program was to calculate Indoor Air Quality. This helped me calculate this value and I was able to
+            do my own conversion then to calculate the Index Air Quality figure.</li>
+    </ul>
+    
+    
+</section>
+    <!-- inclue the footer section on all pages -->
+    <!-- footer with paragraph -->
+<footer>
+    <p>Sarah Barron - Hdip in Computer Science - Waterford Institute of Technology </p>
+    <p>Computer Systems and Networking - Assignment 2 - IoT's</p>
+    <p>e-mail: sarahflavin@yahoo.com </p>
+</footer>
+  </div>
+</body>
+
+</html>

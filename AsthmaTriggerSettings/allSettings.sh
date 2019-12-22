@@ -57,6 +57,7 @@ else
 fi
 
 echo "-------------------------------------------------------------------------------------------------------------------------------------------------"
+
 until [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ] || [ "$YorN" = 'n' ] || [ "$YorN" = 'N' ]
 do
 	echo
@@ -70,7 +71,7 @@ done
 # Run the singleSettings.sh file for each of the sensor ranges the user wants to change
 if [ "$YorN" = 'n' ] || [ "$YorN" = 'N' ]
 then
-
+	clear
 	YorN=""
 	until [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ] || [ "$YorN" = 'n' ] || [ "$YorN" = 'N' ]
 	do
@@ -88,6 +89,7 @@ then
         	./AsthmaTriggerSettings/singleSettings.sh temp all
 	fi
 
+	clear
 	YorN=""
 	until [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ] || [ "$YorN" = 'n' ] || [ "$YorN" = 'N' ]
 	do
@@ -104,6 +106,7 @@ then
         	./AsthmaTriggerSettings/singleSettings.sh hum all
 	fi
 
+	clear
 	YorN=""
 	until [ "$YorN" = 'y' ] || [ "$YorN" = 'Y' ] || [ "$YorN" = 'n' ] || [ "$YorN" = 'N' ]
 	do
@@ -120,6 +123,7 @@ then
         	./AsthmaTriggerSettings/singleSettings.sh iaq all
 	fi
         echo
+	clear
 	echo "-------------------------------------------------------------------------------------------------------------------------------------------------"
 	./AsthmaTriggerSettings/remoteAccess.sh
 

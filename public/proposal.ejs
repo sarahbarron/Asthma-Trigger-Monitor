@@ -1,0 +1,58 @@
+<!-- Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
+-->
+<!-- include the navigation menu -->
+<%- include('./partials/_nav.ejs', {id : "proposal"}); %>
+<section class="center-section">
+    <h1> Project Proposal </h1>
+    <p>
+        I currently have two asthma and allergy sufferers living in my house and there are a number of triggers that
+        effect their asthma including
+    </p>
+    <ol>
+        <li> Humidity (moist / damp air)</li>
+        <li>Temperature (mostly cold air but temperatures that are too high can also effect them)</li>
+        <li>Air quality (dust mites, smoke and chemicals such as hair spray, deodorants etc)</li>
+    </ol>
+    <p>Therefore, the project I am proposing is a device to monitor indoor air quality, temperature and humidity within
+        the home using a sensor.</p>
+    <p>
+        I will send sensor values to Blynk and ThingSpeak IoT applications every 15 seconds to allow me to
+        store, retrieve and display sensor values on line graphs, number displays and gauges. The purpose of this is to
+        allow
+        me to check the current sensor values either on my phone or on my laptop at any time. It will also allow me to
+        view
+        the sensor data over longer periods of time to compare or have an overall view over time of air quality within
+        my home. I will also be able to complete MATLAB analysis on the sensor data if I needed too.</p>
+    </p>
+    <p>
+        When the sensor values go outside of the ideal values for an asthma sufferer. I will use the Blynk IoT
+        application to send a notification to a my phone.
+    </p>
+    <p>
+        Every morning and night i will use the Blynk IoT application to send me a notification to remind me to give my
+        two
+        sons their asthma medication/Inhaler.
+    </p>
+    <p>
+        Every morning I will send an email report with details of the average sensor values for the previous 24 hours. I
+        will use ThingSpeak, MATLAB analysis, a time controller and IFTTT IoT application to accomplish this.
+    </p>
+    <p>
+        I will setup presence detection. I do not have access to my heating, humidifier or dehumidifier remotely.
+        Therefore if I am in the house and the sensor values go out of range i will get a notification as I can turn
+        on/off devices when I am at home.
+        However if there is nobody detected at home I will not receive out of range notifications as I
+        can not turn on/off devices remotely. I will set it up that the settings for this can be changed by the user, so
+        if
+        they want to receive notifications at all times weather they are at home or not they will receive a
+        notification.
+    </p>
+    <p>
+        I also intend to create a website, that will show ThingSpeak graphs and current sensor readings and will
+        communicate details of the project.
+    </p>
+</section>

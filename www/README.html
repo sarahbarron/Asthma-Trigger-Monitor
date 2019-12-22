@@ -1,0 +1,425 @@
+<!--  Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
+ -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Title -->
+  <title>Air Quality Monitor</title>
+  <!-- css style sheets -->
+  <link rel="stylesheet" href="./css/general-styles.css">
+  <link rel="stylesheet" href="./css/grid.css">
+  <link rel="stylesheet" href="./css/nav.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/center-sections.css">
+  <link rel="stylesheet" href="./css/images.css">
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js">
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- include all content from the current page -->
+    <h1>Asthma Indoor Air Monitor</h1><hr>
+<h2>Student Name: Sarah Barron</h2><hr>
+<h2>About this project</h2><p>As a student at Waterford Institute of Technology one of the modules I am studying is computer networking. The project which were required to complete was to create a project using networking/IoT standards and protocols, to incorporated physical devices such as sensors and to incorporate different layers (sensor, processing node, gateway, application) of an IoT/connected device architecture.</p>
+<h2>Computer Networking Protocols and Standards used</h2><h3>TCP/IP protocol Suite</h3><ul>
+<li><p>Data Link Layer protocol</p>
+<ul>
+<li>Wireless WiFi<ul>
+<li>Uses wireless 802.11 standard</li>
+<li>Uses MAC - multiple access control protocol</li>
+</ul>
+</li>
+<li>ARP - Address Resolution Protocol</li>
+<li>I2C protocol - Inter-Integrated Circuit</li>
+<li>Physical Devices (Laptop, mobile phone, Raspberry Pi, BME680 sensor, wireless WIFI router)</li>
+</ul>
+</li>
+<li><p>Network Layer</p>
+<ul>
+<li>Internet Protocol - host to host packet 
+delivery</li>
+</ul>
+</li>
+<li><p>Transport Layer</p>
+<ul>
+<li>TCP Transmission Control Protocol - best for HTTP.</li>
+</ul>
+</li>
+<li><p>Apllication Layer</p>
+<ul>
+<li>HTTP - HyperText Transfer Protocol</li>
+</ul>
+</li>
+</ul>
+<h2>Project Proposal</h2><p>I currently have 2 asthma and allergy sufferers living in my house and there are a number of triggers that effect their asthma including </p>
+<ol>
+<li>Humidity (moist / damp air) </li>
+<li>Temperature (mostly cold air but temperatures that are too high can also effect them)</li>
+<li>Air quality - dust mites, smoke and chemicals such as hair spray, deodorants etc </li>
+</ol>
+<p>Therefore, the project I am proposing is a device to monitor indoor air quality, temperature and humidity within the home using a sensor.</p>
+<p>When the sensor values go outside of the ideal values for an asthma sufferer. I will use the Blynk IoT application to send a notification to a my phone.</p>
+<p>Every morning and night i will use the Blynk IoT application to send me a notification to remind me to give my 2 sons their asthma medication/inhaler.</p>
+<p>Every morning I will send an email report with details of the average sensor values for the previous 24 hours. I will use ThingSpeak, MATLAB analysis, a time controller and IFTTT IoT application to accomplish this.</p>
+<p>I will also send the sensor values to Blynk and ThingSpeak IoT applications every 15 seconds to allow me to store, retrieve and display sensor values on line graphs, number displays and gauges. The purpose of this is to allow me to check the current sensor values either on my phone or on my laptop at any time. It will also allow me to view the sensor data over longer periods of time to compare or have an overall view over time of air quality within the my home. This also allows me to complete MATLAB analysis on the sensor data.</p>
+<p>There will be presence detection. I do not have access to my heating, humidifier or dehumidifier remotely. Therefore if I am in the house and the sensor values go out of range i will get a notification as I can do something about it when I am at home. However if there is nobody detected at home I will not receive out of range notifications as I can not do anything about it remotely. The settings for this can be changed by the user, if they want to receive notifications at all times when they are at home or when they are away from home they can set this up.</p>
+<p>I also intend to create a website, that will show ThingSpeak graphs and current sensor readings and will describe the project.</p>
+<h2>Project Details</h2><h3>Settings for Asthma Sufferers</h3><p>The general advice and from reading the <a href="https://apps.who.int/iris/bitstream/handle/10665/276001/9789241550376-eng.pdf?ua=1">World Health Organization - Housing and Health Guidelines 2018</a>, I set the default temperature range to between 18-21 Celsius. 
+However the maximum level a user can set the temperature to is 24 Celsius as recommended by WHO. 
+The ideal temperature is 21 C.</p>
+<p>Again the general advice for humidity or moisture levels for asthma sufferers is between 30 - 50% with an ideal humidity level of 40%. The programs default settings is a range between 30 - 50%. A user has the choice to narrow this range but can not increase the range, as outside this range would be unhealthy for asthma sufferers.</p>
+<p>The Index Air Quality measurement is calculated using 20% Humidity : 80% Gas levels. 
+I have set the default IAQ range to between 0 and 100 as above this level can lead to members of sensitive groups to experience health effects.<br>Between 50-100 Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution. 
+If the Asthma sufferer is unusually sensitive they have the option to reduce the default IAQ level down to a level they are happy with.</p>
+<p>Initially the user will either use the sensor with the default values:</p>
+<p>Temperature: 18-21 Celsius</p>
+<p>Humidity: 30-50 %RH</p>
+<p>Index Air Quality : 0-100 IAQ</p>
+<p>or set their own values which must be set within healthy ranges for Asthma sufferers. This can be set up via a shell scripting menu before the sensor is run.</p>
+<h4>BME680 Sensor -&gt; IoT&#39;s</h4><p>The BME680 sensor which is attached to the Raspberry Pi 3B senses the temperature, humidity and gas levels every 15 seconds and sends the values to Blynk an IoT mobile application that controls hardware remotely and to Thingspeak an IoT application that stores and displays sensor values and reacts using MATLAB Analysis, TimeControl and IFTTT another IoT application to manage services, to send an email to the user daily with the average temperature, humidity and IAQ levels for the previous 24 hours. </p>
+<h4>Blynk</h4><p>When the Temperature, Humidity or Air Quality goes out of range the user will be sent a Blynk notification to inform them of this out of range value.</p>
+<p>Blynk displays the 3 sensor values in numeric gauge form and with a color system.</p>
+<p>For temperature and humidity values in range will show as green, just out of range will show as orange and a further out of range level will show as red. </p>
+<p>The IAQ levels will show as their standard colors starting at a good level represented by green and as the IAQ gets worse the colors change from yellow to orange to red to purple and finally to burgundy.</p>
+<p><img src="./images/IAQ.PNG" alt="Index Air Quality - Color Code"></p>
+<h5>Presence Detection</h5><p>There is a presence detection setup using arp-scan, this detects if someone is in the house. If no-one is home the notifications will not be sent as the user can not control devices such as temperature, humidifier, dehumidifier etc remotely. However, if the user has remote access to devices they can set this up in the setup or main menu. The user will then receive notifications at all times as they have remote access to devices.</p>
+<p>Using Blynk and an eventor, a notification is sent each morning and night to remind the user to take or give the inhaler medication to the Asthma Sufferer.</p>
+<p>The User can use Blynks mobile App to view the current readings at any time and a line graph showing past readings for up to 3 months.</p>
+<h4>ThingSpeak</h4><p>Data is also stored, retrieved and displayed on a ThingSpeak Channel, for the user to view or analyse.
+Every morning Thingspeak has a time control setup to do MATLAB Analysis. 
+The MATLAB analysis retrieves the previous 24 hours sensor readings. The average temperature, humidity and IAQ levels are calculated. These values are send using HTTP to IFTTT.</p>
+<h4>IFTTT</h4><p>When IFTTT receives the trigger email each morning with the average values it enters these values into an template email and sends the email to the user.</p>
+<h4>Website</h4><p>If someone other than the person registered with ThingSpeak wants to view the current temperature, humidity or Index Air Quality they can do so on the <a href="http://networking-iot-project.surge.sh/">website</a></p>
+<hr>
+<h2>Tools, Technologies and descriptions</h2><ol>
+<li>Wireless Wifi router - used to route data between devices.</li>
+<li>Android Smartphone - for setting up the Blynk application and for receiving notifications.</li>
+<li>Laptop with MicroSD Card Reader</li>
+<li><a href="https://ie.farnell.com/element14/pi3-ibm-iot-learnkit/raspberry-pi-3-ibm-iot-learner/dp/2606882?ost=PI3+IBM+IOT+LEARNKIT&amp;ICID=redirect-Y&amp;CMP=os-geobanner-google">Raspberry Pi 3b</a> – small, low cost computer which connects to a sensor. </li>
+<li><a href="https://www.mikroe.com/environment-click">BME680</a> – environmental sensor which measures high-accuracy gas, humidity, temperature and pressure. </li>
+<li>Jumper Wires</li>
+<li><a href="https://i2c.info/">I2C bus</a>  serial communication protocol.</li>
+<li>HTTP - Hyper Text Transfer Protocol used for communication/messaging between devices.</li>
+<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Rasbian buster lite</a> – raspberry Pi’s operating system for headless use.</li>
+<li>MicoSD Card </li>
+<li><a href="https://www.7-zip.org/download.html">7-Zip</a> (windows) - to extract the raspbian image</li>
+<li><a href="https://www.balena.io/etcher/">Etcher</a> - to flash raspbian to the MicroSD Card.</li>
+<li><a href="https://notepad-plus-plus.org/downloads/">Notepad++</a> - for creating the wpa_supplicant.conf file</li>
+<li><a href="https://putty.org/">Putty</a> - SSH secure shell to connect to the Raspberry Pi. </li>
+<li><a href="https://blynk.io/">Blynk</a> - Internet Of Things mobile application to connect to hardware remotely and send notifcations</li>
+<li><a href="https://thingspeak.com/">ThingSpeak</a> - Internet Of Things application to store, retrieve, display, analyse and react to data.</li>
+<li>MATLAB - a programming platform for numerical analysis.</li>
+<li><a href="https://ifttt.com/">IFTTT</a> - Internet Of Things application to manage services such as email.</li>
+<li>Git – for version control </li>
+<li><a href="https://github.com/">GitHub</a> – web based git version control repository hosting service</li>
+<li><a href="http://harpjs.com/">Harp</a> - local web server used prior to deployment of website </li>
+<li><a href="https://surge.sh/">Surge</a> - To deploy the website</li>
+<li><a href="https://nodejs.org/en/">NodeJs</a> - JavaScript Runtime</li>
+<li>HTML - Hypertext language markup language</li>
+<li>CSS - Cascading Style Sheets</li>
+<li><a href="https://www.python.org/downloads/release/python-2717/">Python</a> programming language – a general purpose programming language that is widely used with the Raspberry PI. </li>
+<li>Shell Scripting language - command line interpreter for the menu system</li>
+<li>JSON - JavaScript Object Notation - for storing and retrieving user&#39;s ideal or default range settings.  </li>
+<li>Libraries and packages I needed to install<ul>
+<li>bme680-python</li>
+<li>smbus</li>
+<li>ic2detect</li>
+<li>harp</li>
+<li>surge</li>
+<li>node version 6</li>
+<li>npm</li>
+<li>blynk-library</li>
+</ul>
+</li>
+</ol>
+<h2>How I setup the project</h2><h3>Raspberry Pi 3B</h3><ul>
+<li>Download <a href="https://www.7-zip.org/download.html">7-Zip</a> (windows)</li>
+<li>Download <a href="https://www.balena.io/etcher/">Etcher</a></li>
+<li>Download <a href="https://www.raspberrypi.org/downloads/raspbian/">Rasbian buster lite</a></li>
+<li>Download <a href="https://putty.org/">Putty</a></li>
+<li>Download <a href="https://notepad-plus-plus.org/downloads/">Notepad++</a> </li>
+<li>Using 7-zip unzip the Raspbian buster lite image</li>
+<li>Put the MicroSD card into the computers card reader</li>
+<li>Open Etcher and select the Rasbian buster lite image file that was just downloaded.</li>
+<li>Select the SD card you want to write the image to.</li>
+<li>Click the Flash button and wait for the write to finish.</li>
+<li>Open the MicroSD drive from the computer. </li>
+<li>Inside the boot partition create an empty file called ssh</li>
+<li>Inside the boot partition create a file called wpa_supplicant.conf using Notepad++ and enter the following into this file (replace the SSID and PSK with your own WIFI SSID and PSK):<pre><code>country=IE
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+</code></pre></li>
+</ul>
+<p>network={
+scan_ssid=1
+ssid=&quot;YOUR SSID&quot;
+psk=&quot;YOUR PSK&quot;
+key_mgmt=WPA-PSK
+}</p>
+<pre><code>- Eject the MicroSD card from the computer and put it into the MicroSD slot on the Raspberry Pi.
+- Turn on the power
+- Open command prompt and check if the Raspberry Pi connected to the network using the command `nmap -sn 192.168.8.0/24` from this get the IP address of your Raspberry Pi
+- Open the secure shell Putty
+- Under the Host Name (or IP address) enter the Raspberry Pi&#39;s IP address and use Port 22
+- Enter the the user id `pi` and password `raspberry` you can change these in the raspi-config utility
+- This confirms you are able to login and connect to the Raspberry Pi. Now Disconnect from Putty and Power off the Raspberry Pi in order to connect the BME680 sensor.
+### Connect the BME680 sensor to the Raspberry Pi B3
+- Using the Jumper wires connect the BME680 sensor to the Raspberry Pi connecting pins 
+   - 3.3V (RPi) -&gt; 3.3V (BME680)
+   - gnd (RPi) -&gt; gnd (BME680)
+   - SDA1 (RPi) -&gt; SDA (BME680)
+   - SCL1 (RPi) -&gt; SCL (BME680)
+
+![Raspberry Pi 3B GIPO](./images/sensor-rpi-setup.png)
+
+- Turn the power to your Raspberry Pi back on 
+- Once the bootup is finished as we did previously connect to The Raspberry Pi via SSH Putty.
+- Clone and install the BME680 python library using the following commands </code></pre><p>$git clone <a href="https://github.com/pimoroni/bme680-python.git">https://github.com/pimoroni/bme680-python.git</a></p>
+<p>$cd bme680-python/library</p>
+<p>$sudo python setup.py install</p>
+<p>$cd ~</p>
+<pre><code>- At this stage I ran into a problem `ImportError: No module named smbus`
+![ImportError: No module named smbus](./images/bme-setup1.png)
+- To overcome this problem I installed smbus</code></pre><p>$ sudo pip install smbus</p>
+<pre><code>- Enable the 12C Interface</code></pre><p>$ sudo raspi-config</p>
+<pre><code>- Select option 5 Interfacing Options
+![5. Interfacing Options](./images/i2C-setup1.png)
+- Select P5 I2C
+![P5 I2C](./images/i2c-setup2.png)
+- Select Yes
+![yes](./images/i2c-setup3.png)
+- Finish
+- Enter the following command to reboot the Raspberry Pi</code></pre><p>$ sudo reboot</p>
+<pre><code>- Scan the I2C bus for your device. Install i2cdetect and run the command to detect devices on the I2C bus</code></pre><p>$ sudo i2cdetect -y 1
+$ sudo /usr/sbin/i2cdetect -y 1</p>
+<pre><code>- You should see a number where your device is see below my device was on 7 X 77
+![ic2detect](./images/i2c-setup4.png)
+
+### IFTTT 
+- Register an account with [IFTTT](https://ifttt.com/discover)
+- In the navigation menu click on the profile symbol and select Create
+![Create IFTTT Applet](./images/ifttt1.png)
+- Click on This
+![Click on This](./images/ifttt2.png)
+- In the Search bar type in webhooks
+![search for webhooks](./images/ifttt-setup3.png)
+- Click on Receive a web request
+- Enter an Event Name
+![Enter an Event Name](./images/ifttt-setup5.png)
+- Click on +That
+![Click on That](./images/ifttt-setup6.png)
+- In the search box enter email and select Email
+![search for and select Email](./images/ifttt-setup7.png)
+- Click on Send me an email
+![Click on send me an email](./images/ifttt-setup8.png)
+- Fill in the emails action fields (subject and body) as in the image below and click the create action button
+![fill in the action fields](./images/ifttt-setup9.png)
+- Review and finish.
+- Copy the Make a POST or GET web request to URL
+![copy the url](./images/ifttt-setup12.png)
+
+
+
+
+### ThingSpeak
+- Register an account with [ThingSpeak](https://thingspeak.com/)
+- Create a new channel called air-quality
+![new channel called air-quality](./images/thingpeak-setup1.png)
+
+- like in the diagram above create 3 fields  
+        - Field 1 - temperature
+        - Field 2 - humidity
+        - Field 3 - Indoor Air Quality
+- Save the channel
+- For each Field add a gauge
+       - Add widget
+       - Click on the Gauge Image
+       - And set up the settings as in the below diagrams for each field.
+![gauge settings](./images/thingspeak-gauge-settings.png) 
+- On the main menu click on Apps and then MATLAB Analysis
+- Click the New button to create a new MATLAB Analysis
+- Enter Trigger Email from IFTTT as the Name
+- In the MATLAB Code section add the following code:</code></pre><p>% Read the values in from Indoor Air Quality for the last 24 hours
+% Send an email via the IFTTT service with the daily averages
+%</p>
+<p>% Store the channel ID for the Indoor Air Quality channel.
+% Substitute with your own channelID
+channelID = **** ;</p>
+<p>% trigger url from IFTTT. 
+iftttURL = &#39;** PASTE THE IFTTT URL YOU COPIED EARLIER IN HERE **&#39;;</p>
+<p>% Read API Key:
+% Substitute your ThingSpeak API Key here
+readAPIKey = &#39;<strong>***</strong>&#39;;</p>
+<p>% Read the 24 hours of moisture data from ThingSpeak.
+temperature = thingSpeakRead(channelID,&#39;NumDays&#39;,1,&#39;Fields&#39;,1,&#39;ReadKey&#39;,readAPIKey);
+humidity = thingSpeakRead(channelID,&#39;NumDays&#39;,1,&#39;Fields&#39;,2,&#39;ReadKey&#39;,readAPIKey);
+iaq = thingSpeakRead(channelID,&#39;NumDays&#39;,1,&#39;Fields&#39;,3,&#39;ReadKey&#39;,readAPIKey);</p>
+<p>% Calculate average values of temperature, humidity and indoor air quality
+avgTemp = mean(temperature, &#39;omitnan&#39;);
+avgTemp = round(avgTemp,2);
+avgHum = mean(humidity, &#39;omitnan&#39;);
+avgHum = round(avgHum,2);
+avgIaq = mean(iaq, &#39;omitnan&#39;);
+avgIaq = round(avgIaq,2);</p>
+<p>% send the email
+webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#39;,avgIaq);</p>
+<pre><code>
+- Create a time control go to Apps on the navigation bar and choose time control
+- Enter the settings as seen in the diagram below
+
+![Time Control Settings](./images/thingspeak-time-control.png) 
+
+- Click Save TimeControl
+
+### Blynk
+- Using your Smartphone download the [Blynk App](https://blynk.io/en/getting-started)
+- Create a new account
+- Create a new project
+   - Name: Air Quality
+   - Choose Raspberry Pi 3
+
+- Set up 3 gauges:
+   - Click on the + symbol
+     ![click the plus symbol](./images/blynk-plus.png)
+    - From the menu select Gauge
+      ![Select Gauge](./images/blynk-gauge1.png)
+   - Click on the Gauge that has been created on the dashboard and set up each gauge like the diagram below
+   1 Gauge for Temperature (V1), 1 for Humidity (V2) and 1 for Index Air Quality (V3)
+   ![setting of 3 gauges](./images/blynk-gauge2.png)
+- Set up 1 Super chart
+   - Click on the + symbol
+   ![click on plus symbol](./images/blynk-plus.png)
+   - Select SuperChart from the menu 
+   ![Select SuperChart](./images/blynk-superchart-menu.png)
+   - Setup the SuperChart the same as the settings in the diagram below
+   ![SuperChart Settings](./images/blynk-superchart.png)
+   - For each of the Datastreams (Temp, Humidity, IAQ) click on the small side menu option
+   ![datastream settings](./images/blynk-superchart-sidemenu.png) 
+   - For each one set them up like the diagram below
+   ![Superchart settings](./images/blynk-superchart-settings.png)
+- To setup eventors to send Blynk notification reminders to take asthma medication/Inhaler
+   - click on the plus symbol again
+   ![click on plus symbol](./images/blynk-plus.png)
+   - Select Eventor from the menu
+   ![select eventor](./images/eventor1.png)
+   - Click the add new event button
+   - setup 2 events with the details the same as the diagram below
+   ![eventor settings](./images/eventor3.png)
+
+#### Setup Blynk on Raspberry Pi 3
+- Connect to the Raspberry Pi vi SSH and login
+- Check if you have node installed on the Raspberry by </code></pre><p>$ node -V</p>
+<pre><code>if it is installed it will return a version number. If the version number is not version 6 then you will have to uninstall it an reinstall version 6 as follows.
+
+Uninstall node</code></pre><p>$ sudo apt-get purge node nodejs node.js -y
+$ sudo apt-get autoremove</p>
+<pre><code>
+Install node version 6</code></pre><p>sudo su</p>
+<p>cd /opt</p>
+<p>wget <a href="https://nodejs.org/dist/v6.9.5/node-v6.9.5-linux-armv6l.tar.gz">https://nodejs.org/dist/v6.9.5/node-v6.9.5-linux-armv6l.tar.gz</a> -O - | tar -xz
+mv node-v6.9.5-linux-armv6l nodejs</p>
+<p>apt-get update &amp;&amp; apt-get upgrade
+apt-get install build-essential</p>
+<p>ln -s /opt/nodejs/bin/node /usr/bin/node
+ln -s /opt/nodejs/bin/node /usr/bin/nodejs
+ln -s /opt/nodejs/bin/npm /usr/bin/npm</p>
+<p>exit</p>
+<p>export PATH=$PATH:/opt/nodejs/bin/</p>
+<pre><code>- Install the blynk-library</code></pre><p>sudo npm install blynk-library --save</p>
+<pre><code>### Setup environmental variables
+
+- Retrieve your Blynk Auth Token from the email they sent you.
+- Retrieve your ThingSpeak Write API Key from your ThingSpeak Channel
+![ThingSpeak Write API KEY](./images/thingspeak-api-key.png)
+- Connect to the Raspberry Pi via SSH and login
+- Enter the following commands and substitute your Thingspeak API key and Blynk Authentication key in for the ***</code></pre><p>$ cd ~/
+$ nano .bash_profile</p>
+<p>export THINGSPEAK_WRITE_API=<strong>*
+export BLYNK_AUTH=*</strong></p>
+<pre><code>   CTRL+X and y to save
+
+
+### Clone project
+- Make a new directory and clone the project</code></pre><p>$git clone <a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor.git">https://github.com/sarahbarron/Asthma-Trigger-Monitor.git</a></p>
+<pre><code>### Run program
+- To run the start menu</code></pre><p>$ cd Asthma-Trigger-Monitor
+$ ./startmenu.sh</p>
+<p>```</p>
+<ul>
+<li><p>In the Blynk app make sure to press the play button to run the App.</p>
+</li>
+<li><p>This will start your menu there is 9 options</p>
+<ul>
+<li><ol>
+<li>START SENSOR - this starts the sensor transmitting temperature, humidity and IAQ data to IoT platforms Blynk and Thingspeak.</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>View sensor settings - allows you view the current range settings.</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Setup main settings - Allows you change the default settings for the ranges you want to receive notifications for</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>Setup Temperature Range - Allows you change the default settings for the temperature range.</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>Setup Humidity Range - Allows you change the default settings for the Humidity range.</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>Setup IAQ Range - Allows you change the default settings for the IAQ range.</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>Setup Remote Access - Allows you enter y or n to indicate if you do or do not have remote access to devices.</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>Reset settings to default settings - Resets the ranges back to the default ranges of temperature (18-21 degrees Celsius), humidity (30-50% RH), Index Air Quality(0-100 IAQ).</li>
+</ol>
+</li>
+<li><ol start="9">
+<li>Quit - allows you quit the program</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>To use the default settings and run the program enter 1 into menu prompt </p>
+</li>
+</ul>
+<h2>Things I tried but didn&#39;t work!</h2><h3>WIA</h3><p>I initially setup my data to be sent to WIA and was going to trigger my email from there, but there were a number of issues. Initially I had the graphs set up and when i tried to embed the graphs into my website they did not show. I contacted the customer help chat and was told this was not a feature they had setup even though they had the embed code attached to the widget. In fairness to them they set it up straight away and within an hour or two i was able to view the graphs. However the embedded digit values updated on the website instantly but the line graphs did not update with live data, you needed to refresh the web page every time to see the current line graphs that corresponded with the digit display. I sent messages to WIA a few times about this but got no reply and their chat bot seems to be disabled now. I decided to change at this stage to ThingSpeak and was able to embed all graphs into my website, you don&#39;t have to refresh your page to see current data, it updates automatically and I was able to setup e-mail with IFTTT fairly easily. </p>
+<h3>Presence detection - bluez bluetooth &amp; nmap</h3><p>I find that arp-scan sometimes does not detect you when you are at home so i decided to try <a href="http://www.bluez.org/about/">bluez</a> a linux bluetooth protocol stack, to scan for bluetooth devices, This worked at the beginning and seemed more accurate but it took longer and after a while everytime i ran a bluez scan it would cause the connection from my SSH to the Raspberry Pi to crash. I then tried nmap and again this was more accurate but constant running of this command also caused the connection between my SSH and Raspberry Pi to crash, so I reverted to arp-scan.</p>
+<h2>References</h2><ul>
+<li><a href="https://apps.who.int/iris/bitstream/handle/10665/276001/9789241550376-eng.pdf?ua=1">World Health Organization - Housing and Health Guidelines 2018</a> <ul>
+<li><a href="http://docs.blynk.cc/">Blynk Documentation</a></li>
+<li><a href="https://uk.mathworks.com/help/thingspeak/">ThingSpeak Documentation</a></li>
+<li><a href="https://uk.mathworks.com/help/thingspeak/analyze-channel-data-to-send-email-notification-from-ifttt.html">uk.mathworks.com</a> - Connecting ThingSpeak to IFTTT to send an email</li>
+<li><a href="https://www.mikroe.com/environment-click">BME680</a> had built in example programs. One program was to calculate Indoor Air Quality. This helped me calculate this value and I was able to do my own conversion then to calculate the Index Air Quality figure.</li>
+</ul>
+</li>
+</ul>
+    <!-- inclue the footer section on all pages -->
+    <!-- footer with paragraph -->
+<footer>
+    <p>Sarah Barron - Hdip in Computer Science - Waterford Institute of Technology </p>
+    <p>Computer Systems and Networking - Assignment 2 - IoT's</p>
+    <p>e-mail: sarahflavin@yahoo.com </p>
+</footer>
+  </div>
+</body>
+
+</html>

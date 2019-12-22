@@ -19,7 +19,6 @@ import os
 from getUserIdealSettings import getAllSettings
 from presenceDetection import presence_detection
 
-
 ###################### USER SETTINGSS #############################################################################################
 
 # Get user settings
@@ -243,7 +242,7 @@ sensor.select_gas_heater_profile(0)
 # burn_in_time (in seconds) is kept track of.
 start_time = time.time()
 curr_time = time.time()
-burn_in_time = 30
+burn_in_time = 1200
 
 # create an array to store burn in data
 burn_in_data = []
@@ -252,7 +251,7 @@ try:
     # Collect gas resistance burn-in values, then use the average
     # of the last 50 values to set the upper limit for calculating
     # gas_baseline.
-    print('Collecting gas resistance burn-in data for 5 mins\n')
+    print('Collecting gas resistance burn-in data for 20 mins\n')
     while curr_time - start_time < burn_in_time:
         curr_time = time.time()
         if sensor.get_sensor_data() and sensor.data.heat_stable:
@@ -278,6 +277,7 @@ try:
         hum_baseline))
 
 ################################# INFINITE LOOP #############################################################################
+    
 
     # Continue to loop
     while True:
@@ -285,6 +285,7 @@ try:
         blynk.run()
         # if the sensor is receiving data and the heat_stable is true
         if sensor.get_sensor_data() and sensor.data.heat_stable:
+
 
             # get the gas reading (ohms)
             gas = sensor.data.gas_resistance
@@ -323,8 +324,10 @@ try:
 
             # get the temperature reading
             temp = round(sensor.data.temperature, 1)
-            hum = round(hum, 1)
+            temp = round(temp,1)
+	    hum = round(hum, 1)
             aqi = round(air_quality_index, 1)
+
 
             # sends the data to the cloud IoTs Blynk and Thingspeak
             WriteDataToCloudIoTs(temp, hum, aqi)
@@ -333,7 +336,8 @@ try:
             # if the user has no remote access to devices do a presence detection
             # to check if they are home
             if doPresenceScan:
-               notify = presence_detection()
+
+		notify = presence_detection()
 
 	    # print message to terminal
             print('temp: {0:.2f} Celsius, humidity: {1:.2f} %RH, air quality: {2:.2f}'.format(
