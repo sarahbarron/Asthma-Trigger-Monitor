@@ -1,0 +1,67 @@
+/* Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor */
+
+/* Center Sections */
+h1 {
+    text-decoration: underline;
+}
+
+.center-section h2 {
+    color: #08af5f;
+    font-size: 23px;
+}
+
+hr {
+    margin: 100px 0 50px 0;
+}
+
+/* center section paragraph font size */
+.center-section p,
+.center-section ol li,
+.center-section ul li {
+    font-size: 20px;
+    line-height: 200%;
+}
+
+/* center section*/
+.center-section {
+    padding: 100px 50px 100px 50px;
+}
+
+/* Iframe */
+#thingspeak iframe {
+    width: 40vw;
+    height: 50vh;
+    border: 1px solid #cccccc;
+    padding: 50px;
+}
+
+#demovideo iframe {
+    width: 50vw;
+    height: 60vh;
+}
+
+.graphic-benchmark img {
+    max-width: 85vw;
+}
+
+pre {
+    white-space: pre-wrap;
+    background: gainsboro;
+}
+
+#setup img {
+    display: block;
+    max-width: 80vw;
+    margin: 20px 0px 20px 0px;
+}
+
+#setup ol li,
+#setup ul li,
+#setup p {
+    line-height: 300%;
+
+}

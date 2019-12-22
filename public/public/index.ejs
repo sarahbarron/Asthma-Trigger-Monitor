@@ -1,0 +1,74 @@
+<!-- 
+Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor 
+-->
+<!-- include the navigation menu -->
+<%- include('./partials/_nav.ejs', {id : "home"}); %>
+<section id="thingspeak" class="center-section">
+    <div class="ui two column grid">
+        <div class="row">
+            <div class="column">
+                <h1>Indoor Air Quality</h1>
+            </div>
+            <div>
+                <p> Ideal Indoor Air Quality is between 0-100 IAQ</p>
+                <p> except for unusually sensitve people the range is 0-50 IAQ</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <iframe src="https://thingspeak.com/channels/915589/widgets/126961"></iframe>
+            </div>
+            <div class="column">
+                <iframe
+                    src="https://thingspeak.com/channels/915589/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Indoor+Air+Quality&type=line"></iframe>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="ui two column grid">
+        <div class="row">
+            <div class="column">
+                <h1>Temperature</h1>
+            </div>
+            <div>
+                <p>Ideal Temperature is 21 degrees Celsius</p>
+                <p> However temperatures between </p>
+                <p> 18-21 degrees Celsius are good</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <iframe src="https://thingspeak.com/channels/915589/widgets/123947"></iframe>
+            </div>
+            <div class="column">
+                <iframe
+                    src="https://thingspeak.com/channels/915589/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temperature&type=line&xaxis=Time&yaxis=Celsius"></iframe>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="ui two column grid">
+        <div class="row">
+            <div class="column">
+                <h1>Humidity</h1>
+            </div>
+            <div>
+                <p> Ideal Humidity is 40% RH</p>
+                <p>but ranges between 30%-50% are good</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <iframe src="https://thingspeak.com/channels/915589/widgets/123951"></iframe>
+            </div>
+            <div class="column">
+                <iframe
+                    src="https://thingspeak.com/channels/915589/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Humidity&type=line&xaxis=time&yaxis=Humidity+%25RH"></iframe>
+            </div>
+        </div>
+    </div>
+</section>

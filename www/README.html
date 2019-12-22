@@ -30,7 +30,35 @@ Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
     <!-- include all content from the current page -->
     <h1>Asthma Indoor Air Monitor</h1><hr>
 <h2>Student Name: Sarah Barron</h2><hr>
-<h2>About this project</h2><p>As a student at Waterford Institute of Technology one of the modules I am studying is computer networking. The project which were required to complete was to create a project using networking/IoT standards and protocols, to incorporated physical devices such as sensors and to incorporate different layers (sensor, processing node, gateway, application) of an IoT/connected device architecture.</p>
+<h2>About this project</h2><p>As a student at Waterford Institute of Technology one of the modules I am studying is Computer Networking. The project which we are required to complete is to create a project with the following specification.</p>
+<ul>
+<li>Propose a project    <ul>
+<li>See my proposal <a href="proposal.html">here</a></li>
+</ul>
+</li>
+<li>Create a working project using networking/IoT standards &amp; protocols.    <ul>
+<li>I used HTTP, ARP, I2C protocol and Wireless WIFI</li>
+<li>Requires a &quot;physical&quot; aspect – sensors/devices    </li>
+<li>I used a Raspberry Pi 3B and connected a BME680 sensor to it reading in current temperature, humidity and gas data</li>
+</ul>
+</li>
+<li>Present and communicate your work in a clear, correct manner    <ul>
+<li>I presented the project with a <a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor">Git Repository,</a>    </li>
+<li>a detailed <a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor">Readme</a>,    </li>
+<li>a <a href="video.html">video,</a>    </li>
+<li>and this website.</li>
+</ul>
+</li>
+<li>The project should incorporate the different layers (sensor, processing node, gateway, application) of an IoT/connected device architecture.    <ul>
+<li>I used The BME680 sensor to sense data    </li>
+<li>I used the Raspberry Pi to connect to the sensor and send data to cloud IoT technologies Blynk and ThingSpeak    *   I used my Android SmartPhone and laptop to view sensor data, notifications and emails    </li>
+<li>I used a WIFI router as a gateway for my devices to cloud IoT platforms    </li>
+<li>I used HTTP for messaging    </li>
+<li>I used ARP for presence detection    </li>
+<li>I used ThingSpeaks MATLAB Analysis and Time Control to trigger IFTTT to send me an email each morning</li>
+</ul>
+</li>
+</ul>
 <h2>Computer Networking Protocols and Standards used</h2><h3>TCP/IP protocol Suite</h3><ul>
 <li><p>Data Link Layer protocol</p>
 <ul>
@@ -61,19 +89,19 @@ delivery</li>
 </ul>
 </li>
 </ul>
-<h2>Project Proposal</h2><p>I currently have 2 asthma and allergy sufferers living in my house and there are a number of triggers that effect their asthma including </p>
+<h2>Project Proposal</h2><p>I currently have two asthma and allergy sufferers living in my house and there are a number of triggers that effect their asthma including</p>
 <ol>
 <li>Humidity (moist / damp air) </li>
 <li>Temperature (mostly cold air but temperatures that are too high can also effect them)</li>
 <li>Air quality - dust mites, smoke and chemicals such as hair spray, deodorants etc </li>
 </ol>
 <p>Therefore, the project I am proposing is a device to monitor indoor air quality, temperature and humidity within the home using a sensor.</p>
+<p>I will send sensor values to Blynk and ThingSpeak IoT applications every 15 seconds to allow me to store, retrieve and display sensor values on line graphs, number displays and gauges. The purpose of this is to allow me to check the current sensor values either on my phone or on my laptop at any time. It will also allow me to view the sensor data over longer periods of time to compare or have an overall view over time of air quality within my home. I will also be able to complete MATLAB analysis on the sensor data if I needed too.</p>
 <p>When the sensor values go outside of the ideal values for an asthma sufferer. I will use the Blynk IoT application to send a notification to a my phone.</p>
-<p>Every morning and night i will use the Blynk IoT application to send me a notification to remind me to give my 2 sons their asthma medication/inhaler.</p>
+<p>Every morning and night i will use the Blynk IoT application to send me a notification to remind me to give my two sons their asthma medication/Inhaler.</p>
 <p>Every morning I will send an email report with details of the average sensor values for the previous 24 hours. I will use ThingSpeak, MATLAB analysis, a time controller and IFTTT IoT application to accomplish this.</p>
-<p>I will also send the sensor values to Blynk and ThingSpeak IoT applications every 15 seconds to allow me to store, retrieve and display sensor values on line graphs, number displays and gauges. The purpose of this is to allow me to check the current sensor values either on my phone or on my laptop at any time. It will also allow me to view the sensor data over longer periods of time to compare or have an overall view over time of air quality within the my home. This also allows me to complete MATLAB analysis on the sensor data.</p>
-<p>There will be presence detection. I do not have access to my heating, humidifier or dehumidifier remotely. Therefore if I am in the house and the sensor values go out of range i will get a notification as I can do something about it when I am at home. However if there is nobody detected at home I will not receive out of range notifications as I can not do anything about it remotely. The settings for this can be changed by the user, if they want to receive notifications at all times when they are at home or when they are away from home they can set this up.</p>
-<p>I also intend to create a website, that will show ThingSpeak graphs and current sensor readings and will describe the project.</p>
+<p>I will setup presence detection. I do not have access to my heating, humidifier or dehumidifier remotely. Therefore if I am in the house and the sensor values go out of range i will get a notification as I can turn on/off devices when I am at home. However if there is nobody detected at home I will not receive out of range notifications as I can not turn on/off devices remotely. I will set it up that the settings for this can be changed by the user, so if they want to receive notifications at all times weather they are at home or not they will receive a notification.</p>
+<p>I also intend to create a website, that will show ThingSpeak graphs and current sensor readings and will communicate details of the project.</p>
 <h2>Project Details</h2><h3>Settings for Asthma Sufferers</h3><p>The general advice and from reading the <a href="https://apps.who.int/iris/bitstream/handle/10665/276001/9789241550376-eng.pdf?ua=1">World Health Organization - Housing and Health Guidelines 2018</a>, I set the default temperature range to between 18-21 Celsius. 
 However the maximum level a user can set the temperature to is 24 Celsius as recommended by WHO. 
 The ideal temperature is 21 C.</p>
@@ -91,7 +119,7 @@ If the Asthma sufferer is unusually sensitive they have the option to reduce the
 <p>Blynk displays the 3 sensor values in numeric gauge form and with a color system.</p>
 <p>For temperature and humidity values in range will show as green, just out of range will show as orange and a further out of range level will show as red. </p>
 <p>The IAQ levels will show as their standard colors starting at a good level represented by green and as the IAQ gets worse the colors change from yellow to orange to red to purple and finally to burgundy.</p>
-<p><img src="./images/IAQ.PNG" alt="Index Air Quality - Color Code"></p>
+<p><img src="./images/IAQ" alt="Index Air Quality - Color Code"></p>
 <h5>Presence Detection</h5><p>There is a presence detection setup using arp-scan, this detects if someone is in the house. If no-one is home the notifications will not be sent as the user can not control devices such as temperature, humidifier, dehumidifier etc remotely. However, if the user has remote access to devices they can set this up in the setup or main menu. The user will then receive notifications at all times as they have remote access to devices.</p>
 <p>Using Blynk and an eventor, a notification is sent each morning and night to remind the user to take or give the inhaler medication to the Asthma Sufferer.</p>
 <p>The User can use Blynks mobile App to view the current readings at any time and a line graph showing past readings for up to 3 months.</p>
@@ -180,7 +208,7 @@ key_mgmt=WPA-PSK
    - SDA1 (RPi) -&gt; SDA (BME680)
    - SCL1 (RPi) -&gt; SCL (BME680)
 
-![Raspberry Pi 3B GIPO](./images/sensor-rpi-setup.png)
+![Raspberry Pi 3B GIPO](./images/sensor-rpi-setup)
 
 - Turn the power to your Raspberry Pi back on 
 - Once the bootup is finished as we did previously connect to The Raspberry Pi via SSH Putty.
@@ -189,52 +217,65 @@ key_mgmt=WPA-PSK
 <p>$sudo python setup.py install</p>
 <p>$cd ~</p>
 <pre><code>- At this stage I ran into a problem `ImportError: No module named smbus`
-![ImportError: No module named smbus](./images/bme-setup1.png)
+
+![ImportError: No module named smbus](./images/bme-setup1)
 - To overcome this problem I installed smbus</code></pre><p>$ sudo pip install smbus</p>
 <pre><code>- Enable the 12C Interface</code></pre><p>$ sudo raspi-config</p>
 <pre><code>- Select option 5 Interfacing Options
-![5. Interfacing Options](./images/i2C-setup1.png)
+
+![5. Interfacing Options](./images/i2c-setup1)
 - Select P5 I2C
-![P5 I2C](./images/i2c-setup2.png)
+
+![P5 I2C](./images/i2c-setup2)
 - Select Yes
-![yes](./images/i2c-setup3.png)
+
+![yes](./images/i2c-setup3)
 - Finish
 - Enter the following command to reboot the Raspberry Pi</code></pre><p>$ sudo reboot</p>
 <pre><code>- Scan the I2C bus for your device. Install i2cdetect and run the command to detect devices on the I2C bus</code></pre><p>$ sudo i2cdetect -y 1
 $ sudo /usr/sbin/i2cdetect -y 1</p>
 <pre><code>- You should see a number where your device is see below my device was on 7 X 77
-![ic2detect](./images/i2c-setup4.png)
+
+![ic2detect](./images/i2c-setup4)
 
 ### IFTTT 
 - Register an account with [IFTTT](https://ifttt.com/discover)
 - In the navigation menu click on the profile symbol and select Create
-![Create IFTTT Applet](./images/ifttt1.png)
+
+![Create IFTTT Applet](./images/ifttt1)
 - Click on This
-![Click on This](./images/ifttt2.png)
+
+![Click on This](./images/ifttt2)
 - In the Search bar type in webhooks
-![search for webhooks](./images/ifttt-setup3.png)
+
+![search for webhooks](./images/ifttt-setup3)
 - Click on Receive a web request
 - Enter an Event Name
-![Enter an Event Name](./images/ifttt-setup5.png)
+
+![Enter an Event Name](./images/ifttt-setup5)
 - Click on +That
-![Click on That](./images/ifttt-setup6.png)
+
+![Click on That](./images/ifttt-setup6)
 - In the search box enter email and select Email
-![search for and select Email](./images/ifttt-setup7.png)
+
+![search for and select Email](./images/ifttt-setup7)
 - Click on Send me an email
-![Click on send me an email](./images/ifttt-setup8.png)
+
+![Click on send me an email](./images/ifttt-setup8)
 - Fill in the emails action fields (subject and body) as in the image below and click the create action button
-![fill in the action fields](./images/ifttt-setup9.png)
+
+![fill in the action fields](./images/ifttt-setup9)
 - Review and finish.
 - Copy the Make a POST or GET web request to URL
-![copy the url](./images/ifttt-setup12.png)
 
-
+![copy the url](./images/ifttt-setup12)
 
 
 ### ThingSpeak
 - Register an account with [ThingSpeak](https://thingspeak.com/)
 - Create a new channel called air-quality
-![new channel called air-quality](./images/thingpeak-setup1.png)
+
+![new channel called air-quality](./images/thingpeak-setup1)
 
 - like in the diagram above create 3 fields  
         - Field 1 - temperature
@@ -245,7 +286,8 @@ $ sudo /usr/sbin/i2cdetect -y 1</p>
        - Add widget
        - Click on the Gauge Image
        - And set up the settings as in the below diagrams for each field.
-![gauge settings](./images/thingspeak-gauge-settings.png) 
+
+![gauge settings](./images/thingspeak-gauge-settings) 
 - On the main menu click on Apps and then MATLAB Analysis
 - Click the New button to create a new MATLAB Analysis
 - Enter Trigger Email from IFTTT as the Name
@@ -277,7 +319,7 @@ webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#
 - Create a time control go to Apps on the navigation bar and choose time control
 - Enter the settings as seen in the diagram below
 
-![Time Control Settings](./images/thingspeak-time-control.png) 
+![Time Control Settings](./images/thingspeak-time-control) 
 
 - Click Save TimeControl
 
@@ -290,31 +332,44 @@ webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#
 
 - Set up 3 gauges:
    - Click on the + symbol
-     ![click the plus symbol](./images/blynk-plus.png)
+
+     ![click the plus symbol](./images/blynk-plus)
     - From the menu select Gauge
-      ![Select Gauge](./images/blynk-gauge1.png)
+
+      ![Select Gauge](./images/blynk-gauge1)
    - Click on the Gauge that has been created on the dashboard and set up each gauge like the diagram below
-   1 Gauge for Temperature (V1), 1 for Humidity (V2) and 1 for Index Air Quality (V3)
-   ![setting of 3 gauges](./images/blynk-gauge2.png)
+       - One Gauge for Temperature (V1)
+       - One for Humidity (V2)
+       - One for Index Air Quality (V3)
+
+   ![setting of 3 gauges](./images/blynk-gauge2)
 - Set up 1 Super chart
    - Click on the + symbol
-   ![click on plus symbol](./images/blynk-plus.png)
+
+   ![click on plus symbol](./images/blynk-plus)
    - Select SuperChart from the menu 
-   ![Select SuperChart](./images/blynk-superchart-menu.png)
+
+   ![Select SuperChart](./images/blynk-superchart-menu)
    - Setup the SuperChart the same as the settings in the diagram below
-   ![SuperChart Settings](./images/blynk-superchart.png)
+
+   ![SuperChart Settings](./images/blynk-superchart)
    - For each of the Datastreams (Temp, Humidity, IAQ) click on the small side menu option
-   ![datastream settings](./images/blynk-superchart-sidemenu.png) 
+
+   ![datastream settings](./images/blynk-superchart-sidemenu) 
    - For each one set them up like the diagram below
-   ![Superchart settings](./images/blynk-superchart-settings.png)
+
+   ![Superchart settings](./images/blynk-superchart-settings)
 - To setup eventors to send Blynk notification reminders to take asthma medication/Inhaler
    - click on the plus symbol again
-   ![click on plus symbol](./images/blynk-plus.png)
+
+   ![click on plus symbol](./images/blynk-plus)
    - Select Eventor from the menu
-   ![select eventor](./images/eventor1.png)
+
+   ![select eventor](./images/eventor1)
    - Click the add new event button
    - setup 2 events with the details the same as the diagram below
-   ![eventor settings](./images/eventor3.png)
+
+   ![eventor settings](./images/eventor3)
 
 #### Setup Blynk on Raspberry Pi 3
 - Connect to the Raspberry Pi vi SSH and login
@@ -340,7 +395,8 @@ ln -s /opt/nodejs/bin/npm /usr/bin/npm</p>
 
 - Retrieve your Blynk Auth Token from the email they sent you.
 - Retrieve your ThingSpeak Write API Key from your ThingSpeak Channel
-![ThingSpeak Write API KEY](./images/thingspeak-api-key.png)
+
+![ThingSpeak Write API KEY](./images/thingspeak-api-key)
 - Connect to the Raspberry Pi via SSH and login
 - Enter the following commands and substitute your Thingspeak API key and Blynk Authentication key in for the ***</code></pre><p>$ cd ~/
 $ nano .bash_profile</p>
@@ -352,54 +408,27 @@ export BLYNK_AUTH=*</strong></p>
 ### Clone project
 - Make a new directory and clone the project</code></pre><p>$git clone <a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor.git">https://github.com/sarahbarron/Asthma-Trigger-Monitor.git</a></p>
 <pre><code>### Run program
-- To run the start menu</code></pre><p>$ cd Asthma-Trigger-Monitor
+- To run the start menu
+- Add the MAC addresses for your smartphone into the Asthma-Trigger-Monitor/AsthmaTriggerSettings/settings.json file</code></pre><p>$ cd Asthma-Trigger-Monitor
 $ ./startmenu.sh</p>
 <p>```</p>
 <ul>
-<li><p>In the Blynk app make sure to press the play button to run the App.</p>
-</li>
-<li><p>This will start your menu there is 9 options</p>
-<ul>
-<li><ol>
+<li>In the Blynk app make sure to press the play button to run the App.</li>
+<li>This will start your menu there is 9 options</li>
+</ul>
+<ol>
 <li>START SENSOR - this starts the sensor transmitting temperature, humidity and IAQ data to IoT platforms Blynk and Thingspeak.</li>
-</ol>
-</li>
-<li><ol start="2">
 <li>View sensor settings - allows you view the current range settings.</li>
-</ol>
-</li>
-<li><ol start="3">
 <li>Setup main settings - Allows you change the default settings for the ranges you want to receive notifications for</li>
-</ol>
-</li>
-<li><ol start="4">
 <li>Setup Temperature Range - Allows you change the default settings for the temperature range.</li>
-</ol>
-</li>
-<li><ol start="5">
 <li>Setup Humidity Range - Allows you change the default settings for the Humidity range.</li>
-</ol>
-</li>
-<li><ol start="6">
 <li>Setup IAQ Range - Allows you change the default settings for the IAQ range.</li>
-</ol>
-</li>
-<li><ol start="7">
 <li>Setup Remote Access - Allows you enter y or n to indicate if you do or do not have remote access to devices.</li>
-</ol>
-</li>
-<li><ol start="8">
 <li>Reset settings to default settings - Resets the ranges back to the default ranges of temperature (18-21 degrees Celsius), humidity (30-50% RH), Index Air Quality(0-100 IAQ).</li>
-</ol>
-</li>
-<li><ol start="9">
 <li>Quit - allows you quit the program</li>
 </ol>
-</li>
-</ul>
-</li>
-<li><p>To use the default settings and run the program enter 1 into menu prompt </p>
-</li>
+<ul>
+<li>To use the default settings and run the program enter 1 into menu prompt </li>
 </ul>
 <h2>Things I tried but didn&#39;t work!</h2><h3>WIA</h3><p>I initially setup my data to be sent to WIA and was going to trigger my email from there, but there were a number of issues. Initially I had the graphs set up and when i tried to embed the graphs into my website they did not show. I contacted the customer help chat and was told this was not a feature they had setup even though they had the embed code attached to the widget. In fairness to them they set it up straight away and within an hour or two i was able to view the graphs. However the embedded digit values updated on the website instantly but the line graphs did not update with live data, you needed to refresh the web page every time to see the current line graphs that corresponded with the digit display. I sent messages to WIA a few times about this but got no reply and their chat bot seems to be disabled now. I decided to change at this stage to ThingSpeak and was able to embed all graphs into my website, you don&#39;t have to refresh your page to see current data, it updates automatically and I was able to setup e-mail with IFTTT fairly easily. </p>
 <h3>Presence detection - bluez bluetooth &amp; nmap</h3><p>I find that arp-scan sometimes does not detect you when you are at home so i decided to try <a href="http://www.bluez.org/about/">bluez</a> a linux bluetooth protocol stack, to scan for bluetooth devices, This worked at the beginning and seemed more accurate but it took longer and after a while everytime i ran a bluez scan it would cause the connection from my SSH to the Raspberry Pi to crash. I then tried nmap and again this was more accurate but constant running of this command also caused the connection between my SSH and Raspberry Pi to crash, so I reverted to arp-scan.</p>

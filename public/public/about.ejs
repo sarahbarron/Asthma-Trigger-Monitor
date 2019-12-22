@@ -1,0 +1,66 @@
+<!-- Student Name	: 	Sarah Barron
+Student ID: 20013679
+Course: Hdip Computer Science - Computer Systems and Networking - Assignment 2 - IoT's
+Deployed website:	http://networking-iot-project.surge.sh/
+Github:		https://github.com/sarahbarron/Asthma-Trigger-Monitor
+-->
+<!-- include the navigation menu -->
+<%- include('./partials/_nav.ejs', {id : "about"}); %>
+<section class="center-section">
+    <h1> About This Project </h1>
+    <p>
+        As a student at Waterford Institute of Technology one of the modules I am studying is Computer Networking. The
+        project which we are required to complete is to create a project with the following specification.
+    </p>
+    <ul>
+        <li>
+            Propose a project
+            <ul>
+                <li>
+                    See my proposal <a href="proposal.html">here</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Create a working project using networking/IoT standards & protocols.
+            <ul>
+                <li>I used HTTP, ARP, I2C protocol and
+                    Wireless WIFI
+                </li>
+            </ul>
+        </li>
+        <li>Requires a "physical" aspect – sensors/devices
+            <ul>
+                <li>
+                    I used a Raspberry Pi 3B and connected a BME680 sensor
+                    to it reading in current temperature, humidity and gas data
+                </li>
+            </ul>
+        </li>
+        <li>Present and communicate your work in a clear, correct manner
+            <ul>
+                <li>I presented the project with a <a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor"
+                        target="_blank">Git
+                        Repository,</a></li>
+                <li>a detailed <a href="https://github.com/sarahbarron/Asthma-Trigger-Monitor"
+                        target="_blank">Readme</a>,</li>
+                <li>a <a href="video.html">video,</a> </li>
+                <li>and this website.</a></li>
+            </ul>
+        </li>
+        <li>The project should incorporate the different layers (sensor, processing node,
+            gateway, application) of an IoT/connected device architecture.
+            <ul>
+                <li>I used The BME680 sensor to sense data</li>
+                <li>I used the Raspberry Pi to connect to the sensor and send data to cloud IoT technologies Blynk and
+                    ThingSpeak</li>
+                <li>I used my Android SmartPhone and laptop to view sensor data, notifications and emails</li>
+                <li>I used a WIFI router as a gateway for my devices to cloud IoT platforms</li>
+                <li>I used HTTP for messaging</li>
+                <li>I used ARP for presence detection</li>
+                <li>I used ThingSpeaks MATLAB Analysis and Time Control to trigger IFTTT to send me an email each
+                    morning</li>
+            </ul>
+        </li>
+    </ul>
+</section>

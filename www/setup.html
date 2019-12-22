@@ -130,7 +130,7 @@ network={
         <li>Enable the 12C Interface</li>
         <pre>$ sudo raspi-config</pre>
         <li>Select option 5 Interfacing Options</li>
-        <img src="./images/i2C-setup1.png" alt="5. Interfacing Options">
+        <img src="./images/i2c-setup1.png" alt="5. Interfacing Options">
         <li>Select P5 I2C</li>
         <img src="./images/i2c-setup2.png" alt="P5 I2C">
         <li>Select Yes</li>
@@ -177,7 +177,7 @@ $ sudo /usr/sbin/i2cdetect -y 1</pre>
         <li>Register an account with <a href="https://thingspeak.com/" target="_blank">ThingSpeak</a></li>
         <li>
             <p>Create a new channel called air-quality
-                <img src="./images/thingpeak-setup1.png" alt="new channel called air-quality"></p>
+                <img src="./images/thingpeak-setup1.PNG" alt="new channel called air-quality"></p>
         </li>
         <li>
             <p>like in the diagram above create 3 fields </p>
@@ -225,7 +225,7 @@ webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#
 </pre>
         <li>Create a time control go to Apps on the navigation bar and choose time control</li>
         <li>Enter the settings as seen in the diagram below</li>
-        <img src="./images/thingspeak-time-control.png" alt="Time Control Settings">
+        <img src="./images/thingspeak-time-control.PNG" alt="Time Control Settings">
         <li>Click Save TimeControl</li>
     </ul>
     <h2 id="blynk">Blynk</h2>
@@ -242,9 +242,9 @@ webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#
         <li>Set up 3 gauges:
             <ul>
                 <li>For each one click on the + symbol
-                    <img src="./images/blynk-plus.png" alt="click the plus symbol"></li>
+                    <img src="./images/blynk-plus.PNG" alt="click the plus symbol"></li>
                 <li>From the menu select Gauge
-                    <img src="./images/blynk-gauge1.png" alt="Select Gauge"></li>
+                    <img src="./images/blynk-gauge1.PNG" alt="Select Gauge"></li>
                 <li>Click on the Gauge's that have been created on the dashboard and set up each gauge like the diagram
                     below.
                     <ul>
@@ -252,21 +252,21 @@ webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#
                         <li>One for Humidity (V2)</li>
                         <li>One for Index Air Quality (V3)</li>
                     </ul>
-                    <img src="./images/blynk-gauge2.png" alt="setting of 3 gauges"></li>
+                    <img src="./images/blynk-gauge2.PNG" alt="setting of 3 gauges"></li>
             </ul>
         </li>
         <li>Set up 1 Super chart
             <ul>
                 <li>Click on the + symbol
-                    <img src="./images/blynk-plus.png" alt="click on plus symbol"></li>
+                    <img src="./images/blynk-plus.PNG" alt="click on plus symbol"></li>
                 <li>Select SuperChart from the menu
-                    <img src="./images/blynk-superchart-menu.png" alt="Select SuperChart">
+                    <img src="./images/blynk-superchart-menu.PNG" alt="Select SuperChart">
                 </li>
                 <li>Setup the SuperChart the same as the settings in the diagram below
-                    <img src="./images/blynk-superchart.png" alt="SuperChart Settings"></li>
+                    <img src="./images/blynk-superchart.PNG" alt="SuperChart Settings"></li>
                 <li>For each of the Datastreams (Temp, Humidity, IAQ) click on the small
                     side menu option
-                    <img src="./images/blynk-superchart-sidemenu.png" alt="datastream settings">
+                    <img src="./images/blynk-superchart-sidemenu.PNG" alt="datastream settings">
                 </li>
                 <li>For each one set them up like the diagram below
                     <img src="./images/blynk-superchart-settings.png" alt="Superchart settings">
@@ -276,12 +276,12 @@ webwrite(iftttURL,&#39;value1&#39;,avgTemp,&#39;value2&#39;,avgHum,&#39;value3&#
         <li>To setup eventors to send Blynk notification reminders to take asthma medication/Inhaler
             <ul>
                 <li>click on the plus symbol again
-                    <img src="./images/blynk-plus.png" alt="click on plus symbol"></li>
+                    <img src="./images/blynk-plus.PNG" alt="click on plus symbol"></li>
                 <li>Select Eventor from the menu
-                    <img src="./images/eventor1.png" alt="select eventor"></li>
+                    <img src="./images/eventor1.PNG" alt="select eventor"></li>
                 <li>Click the add new event button</li>
                 <li>setup 2 events with the details the same as the diagram below
-                    <img src="./images/eventor3.png" alt="eventor settings"></li>
+                    <img src="./images/eventor3.PNG" alt="eventor settings"></li>
             </ul>
         </li>
     </ul>
@@ -315,7 +315,7 @@ export PATH=$PATH:/opt/nodejs/bin/</pre>
     <ul>
         <li>Retrieve your Blynk Auth Token from the email they sent you.</li>
         <li>Retrieve your ThingSpeak Write API Key from your ThingSpeak Channel
-            <img src="./images/thingspeak-api-key.png" alt="ThingSpeak Write API KEY"></li>
+            <img src="./images/thingspeak-api-key.PNG" alt="ThingSpeak Write API KEY"></li>
         <li>Connect to the Raspberry Pi via SSH and login</li>
         <li>Enter the following commands and substitute your Thingspeak API key and Blynk
             Authentication key in</li>
