@@ -425,15 +425,15 @@ $ ./startmenu.sh
 ```
 - In the Blynk app make sure to press the play button to run the App.
 - This will start your menu there is 9 options
-   1. START SENSOR - this starts the sensor transmitting temperature, humidity and IAQ data to IoT platforms Blynk and Thingspeak.
-   2. View sensor settings - allows you view the current range settings.
-   3. Setup main settings - Allows you change the default settings for the ranges you want to receive notifications for
-   4. Setup Temperature Range - Allows you change the default settings for the temperature range.
-   5. Setup Humidity Range - Allows you change the default settings for the Humidity range.
-   6. Setup IAQ Range - Allows you change the default settings for the IAQ range.
-   7. Setup Remote Access - Allows you enter y or n to indicate if you do or do not have remote access to devices.
-   8. Reset settings to default settings - Resets the ranges back to the default ranges of temperature (18-21 degrees Celsius), humidity (30-50% RH), Index Air Quality(0-100 IAQ).
-   9. Quit - allows you quit the program
+  ..1. START SENSOR - this starts the sensor transmitting temperature, humidity and IAQ data to IoT platforms Blynk and Thingspeak.
+  ..2. View sensor settings - allows you view the current range settings.
+  ..3. Setup main settings - Allows you change the default settings for the ranges you want to receive notifications for
+  ..4. Setup Temperature Range - Allows you change the default settings for the temperature range.
+  ..5. Setup Humidity Range - Allows you change the default settings for the Humidity range.
+  ..6. Setup IAQ Range - Allows you change the default settings for the IAQ range.
+  ..7. Setup Remote Access - Allows you enter y or n to indicate if you do or do not have remote access to devices.
+  ..8. Reset settings to default settings - Resets the ranges back to the default ranges of temperature (18-21 degrees Celsius), humidity (30-50% RH), Index Air Quality(0-100 IAQ).
+  ..9. Quit - allows you quit the program
 
 - To use the default settings and run the program enter 1 into menu prompt 
 
