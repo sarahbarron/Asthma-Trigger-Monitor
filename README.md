@@ -5,6 +5,12 @@ ________________________________________
 ## Student Name: Sarah Barron 
 
 _______________________________________
+## Website & Video Link
+
+Website - [http://networking-iot-project.surge.sh/](http://networking-iot-project.surge.sh/)
+
+Video link - [https://www.youtube.com/embed/h9rR6T9mgMU](https://www.youtube.com/embed/h9rR6T9mgMU) 
+
 ## About this project
 
 As a student at Waterford Institute of Technology one of the modules I am studying is Computer Networking. The project which we are required to complete is to create a project with the following specification.
