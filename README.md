@@ -24,7 +24,7 @@ As a student at Waterford Institute of Technology one of the modules I am studyi
       *   I presented the project with a [Git Repository,](https://github.com/sarahbarron/Asthma-Trigger-Monitor)    
       *   a detailed [Readme](https://github.com/sarahbarron/Asthma-Trigger-Monitor),    
       *   a [video,](video.html)    
-      *   and this website.
+      *   and a [website](http://networking-iot-project.surge.sh/).
 *   The project should incorporate the different layers (sensor, processing node, gateway, application) of an IoT/connected device architecture.    
       *   I used The BME680 sensor to sense data    
       *   I used the Raspberry Pi to connect to the sensor and send data to cloud IoT technologies Blynk and ThingSpeak    *   I used my Android SmartPhone and laptop to view sensor data, notifications and emails    
